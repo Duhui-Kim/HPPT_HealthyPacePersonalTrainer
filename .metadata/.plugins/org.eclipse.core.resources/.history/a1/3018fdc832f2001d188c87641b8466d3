@@ -1,0 +1,5 @@
+package com.diet.model.dto;
+
+public class FoodCondition {
+
+}

@@ -1,0 +1,30 @@
+package com.diet.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+public class AuthenticationConfig {
+	
+	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+		return httpSecurity
+				.httpBasic().disable()
+				.csrf().disable()
+				.cors().and()
+				.authorizeRequests()
+				.antMatchers("/user/login", "/user/join").permitAll() // 로그인 회원가입은 가능하도록
+				.antMatchers(HttpMethod.POST, "/review").authenticated()
+				.and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt 사용할 경우 사용
+				.and()
+//				.addFilterBefore(new JwtTokenFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class)
+				.build();
+	}			
+}

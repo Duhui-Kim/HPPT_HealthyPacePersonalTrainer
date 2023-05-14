@@ -1,0 +1,13 @@
+package com.diet.model.dao;
+
+import java.util.List;
+
+import com.diet.model.dto.Food;
+
+public interface FoodDao {
+	public void insertFood(Food food);
+	
+	public List<Food> selectByName(String foodName);
+	
+	public List<Food> selectByCondition(FoodCondition condition);
+}

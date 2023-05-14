@@ -1,0 +1,7 @@
+package com.diet.controller;
+
+public class FoodController {
+	public static void main(String[] args) {
+		System.out.println("hello");
+	}
+}

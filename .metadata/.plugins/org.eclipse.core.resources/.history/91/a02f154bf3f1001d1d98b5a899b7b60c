@@ -1,0 +1,58 @@
+package com.diet.controller;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.diet.model.dto.Food;
+
+@RestController
+@RequestMapping("/open")
+public class FoodController {
+
+	@Value("${food.api.key}")
+	private String foodapikey;
+
+	@GetMapping
+	public void open() {
+
+		StringBuilder response = new StringBuilder();
+
+		try {
+	        URL url = new URL("http://openapi.foodsafetykorea.go.kr/api/" + foodapikey + "/I2790/json/1/5");
+	        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	            response.append(line);
+	        }
+
+	        System.out.println("Response: " + response.toString()); // 디버깅 문 추가
+
+	        JSONParser jsonParser = new JSONParser();
+	        JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
+
+			JSONObject CardSubwayStatsNew = (JSONObject) jsonObject.get("CardSubwayStatsNew");
+			Long totalCount = (Long) CardSubwayStatsNew.get("list_total_count");
+
+			JSONObject subResult = (JSONObject) CardSubwayStatsNew.get("RESULT");
+			JSONArray infoArr = (JSONArray) CardSubwayStatsNew.get("row");
+
+			for (int i = 0; i < infoArr.size(); i++) {
+				JSONObject tmp = (JSONObject) infoArr.get(i);
+				Food food = new Food((int) tmp.get("NUM"), (String) tmp.get("DESC_KOR"), (int) tmp.get("SERVING_SIZE"),
+				        (double) tmp.get("NUTR_CONT1"), (double) tmp.get("NUTR_CONT2"), (double) tmp.get("NUTR_CONT3"), (double) tmp.get("NUTR_CONT4"));
+				System.out.println(food);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();   
+		}
+	}
+}

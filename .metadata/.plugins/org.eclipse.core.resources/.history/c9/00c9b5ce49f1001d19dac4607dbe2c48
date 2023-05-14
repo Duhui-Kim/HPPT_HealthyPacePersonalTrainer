@@ -1,0 +1,26 @@
+package com.diet.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.diet.model.dao.UserDao;
+import com.diet.model.dto.User;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserDao userDao;
+
+	@Override
+	public String join(User user) {
+	
+		User loginUser = userDao.selectById(user.getId());
+		
+		
+		userDao.insert(user);
+		
+		return "SUCCESS";
+	}	
+	
+}

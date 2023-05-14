@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.diet.model.dao.FoodDao">
+	<resultMap type="Food" id="FoodMap">
+		<result property="NUM" column="NUM"/>
+		<result property="DESC_KOR" column="foodName"/>
+		<result property="SERVING_SIZE" column="servingSize"/>
+		<result property="NUTR_CONT1" column="kcal"/>
+		<result property="NUTR_CONT2" column="carbo"/>
+		<result property="NUTR_CONT3" column="protein"/>
+		<result property="NUTR_CONT4" column="fat"/>
+	</resultMap>
+	
+	<insert id="insertFood" parameterType="FoodMap">
+		INSERT INTO foodAPI
+		VALUES(#{NUM}, #{DESC_KOR}, #{SERVING_SIZE}, #{NUTR_CONT1}, #{NUTR_CONT2},
+		#{NUTR_CONT3}, #{NUTR_CONT4});
+	</insert>
+</mapper>

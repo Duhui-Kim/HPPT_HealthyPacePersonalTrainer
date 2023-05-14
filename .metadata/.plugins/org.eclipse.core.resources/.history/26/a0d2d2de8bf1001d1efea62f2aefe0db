@@ -1,0 +1,52 @@
+package com.diet.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.diet.model.dao.UserDao;
+import com.diet.model.dto.User;
+import com.diet.utils.JwtUtil;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Value("${jwt.secret}") // 보안 상 노출되면 안되므로 properties에 저장
+	private String secretKey;
+	
+	private BCryptPasswordEncoder cryptPasswordEncoder = new BCryptPasswordEncoder();
+	
+	private Long expiredMs = 1000 * 60 * 60l;
+
+	@Override
+	public boolean join(User user) {
+		User checkUser = userDao.selectById(user.getId());
+		
+		if(!(checkUser == null)) {
+			return false;
+		}
+		// 비밀번호 암호화
+		String secretPass = cryptPasswordEncoder.encode(user.getPass());
+		user.setPass(secretPass);
+		
+		userDao.insert(user);
+		
+		return true;
+	}
+
+	@Override
+	public String login(User user) {
+		User loginUser = userDao.selectById(user.getId());
+		
+		if(loginUser == null || !cryptPasswordEncoder.matches(user.getPass(), loginUser.getPass())) {
+			return null;
+		}
+		
+		return JwtUtil.createJwt(user.getId(), secretKey, expiredMs);
+	}	
+	
+}

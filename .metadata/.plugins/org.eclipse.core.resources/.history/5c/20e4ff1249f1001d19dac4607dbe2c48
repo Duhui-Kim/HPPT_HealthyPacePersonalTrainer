@@ -1,0 +1,9 @@
+package com.diet.service;
+
+import com.diet.model.dto.User;
+
+public interface UserService {
+	public User getUser(String id);
+	
+	public int regist(User user);
+}
