@@ -9,5 +9,9 @@ public interface UserDao {
 
 	public User selectByName(String name);
 	
-	public User selectByIdNonSensitive(String id);
+	public User selectByIdUnSensitive(String id);
+
+	public int update(User user);
+
+	public void delete(String userId);
 }

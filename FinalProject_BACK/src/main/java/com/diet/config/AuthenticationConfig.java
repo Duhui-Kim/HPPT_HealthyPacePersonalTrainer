@@ -42,7 +42,7 @@ public class AuthenticationConfig {
                 .authorizeRequests()
                 .antMatchers("/user/login", "/user/join", "/init").permitAll() // 유저 로그인과 회원가입은 필터링 X
                 .antMatchers(HttpMethod.POST, "/**").authenticated() // 그 외 요청에 대해서는 JWT 필수
-                .antMatchers("/admin/**").hasAnyRole("ADMIN") // 관리자 권한을 가진 사용자만 접근
+                .antMatchers("/admin/**").hasAnyRole("ADMIN") // 관리자 권한을 가진 사용자만 접근 (지금은 따로 없음)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

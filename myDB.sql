@@ -22,19 +22,15 @@ USE `mydb` ;
 DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `userId` VARCHAR(20),
-  `userPass` VARCHAR(50) NOT NULL,
-  `userName` VARCHAR(20) NOT NULL,
+  `userId` VARCHAR(40),
+  `userPass` VARCHAR(100) NOT NULL,
+  `userName` VARCHAR(40) NOT NULL,
   `userSex` INT NOT NULL,
-  `userHeight` INT NULL,
-  `userWeight` INT NULL,
   `startKcal` INT NOT NULL,
   `remainKcal` INT NOT NULL,
-  `targetWeight` INT NULL,
-  `userImg` VARCHAR(50) NULL,
+  `userImg` VARCHAR(100) NULL,
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `mydb`.`friend`
@@ -42,8 +38,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `friend` ;
 
 CREATE TABLE IF NOT EXISTS `friend` (
-  `userId` VARCHAR(20) NOT NULL,
-  `friendId` VARCHAR(20) NULL,
+  `userId` VARCHAR(40) NOT NULL,
+  `friendId` VARCHAR(40) NULL,
   PRIMARY KEY (`userId`),
   FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`friendId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
@@ -57,11 +53,11 @@ DROP TABLE IF EXISTS `board` ;
 
 CREATE TABLE IF NOT EXISTS `board` (
   `boardId` INT AUTO_INCREMENT,
-  `userId` VARCHAR(20) NOT NULL,
-  `boardContent` VARCHAR(300) NOT NULL,
+  `userId` VARCHAR(40) NOT NULL,
+  `boardContent` VARCHAR(1000) NOT NULL,
   `createTime` DATE NOT NULL,
   `updateTime` DATE NULL,
-  `boardImg` VARCHAR(50) NULL,
+  `boardImg` VARCHAR(100) NULL,
   `viewCnt` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`boardId`),
   INDEX `userId_idx` (`userId` ASC) VISIBLE,
@@ -79,9 +75,9 @@ DROP TABLE IF EXISTS `review` ;
 
 CREATE TABLE IF NOT EXISTS `review` (
   `reviewId` INT AUTO_INCREMENT,
-  `userId` VARCHAR(20) NOT NULL,
+  `userId` VARCHAR(40) NOT NULL,
   `boardId` INT NOT NULL,
-  `reviewContent` VARCHAR(100) NOT NULL,
+  `reviewContent` VARCHAR(300) NOT NULL,
   `createTime` DATE NOT NULL,
   `updateTime` DATE NULL,
   PRIMARY KEY (`reviewId`),
@@ -102,14 +98,14 @@ CREATE TABLE IF NOT EXISTS `review` (
 DROP TABLE IF EXISTS `mealplan` ;
 
 CREATE TABLE IF NOT EXISTS `mealplan` (
-  `userId` VARCHAR(20) NOT NULL,
-  `menuName` VARCHAR(45) NOT NULL,
+  `userId` VARCHAR(40) NOT NULL,
+  `menuName` VARCHAR(50) NOT NULL,
   `menuKcal` INT NOT NULL,
   `carbo` INT NULL,
   `protein` INT NULL,
   `fat` INT NULL,
   `timeToEat` DATE NOT NULL,
-  `mealImg` VARCHAR(50) NULL,
+  `mealImg` VARCHAR(100) NULL,
   PRIMARY KEY (`userId`),
     FOREIGN KEY (`userId`)
     REFERENCES `mydb`.`user` (`userId`)
@@ -125,7 +121,7 @@ DROP TABLE IF EXISTS `likeBoad` ;
 
 CREATE TABLE IF NOT EXISTS `likeBoad` (
   `likeId` INT AUTO_INCREMENT,
-  `userId` VARCHAR(20) NOT NULL,
+  `userId` VARCHAR(40) NOT NULL,
   `boardId` INT NOT NULL,
   PRIMARY KEY (`likeId`),
   INDEX `userId_idx` (`userId` ASC) VISIBLE,
@@ -147,7 +143,7 @@ DROP TABLE IF EXISTS `foodAPI` ;
 
 CREATE TABLE IF NOT EXISTS `foodAPI` (
   `NUM` INT NOT NULL,
-  `foodName` VARCHAR(45) NULL,
+  `foodName` VARCHAR(50) NULL,
   `servingSize` DOUBLE NULL,
   `kcal` DOUBLE NULL,
   `carbo` DOUBLE NULL,
@@ -156,9 +152,8 @@ CREATE TABLE IF NOT EXISTS `foodAPI` (
   PRIMARY KEY (`NUM`))
 ENGINE = InnoDB;
 
-
-select * from foodAPI
-WHERE num > 90000;
+select * from foodAPI;
+select * from user;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

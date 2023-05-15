@@ -5,12 +5,12 @@ public class User {
 	private String userName;
 	private String userPass;
 	private int userSex;
-	private String userHeight;
-	private String userWeight;
+	private int userWeight;
 	private int startKcal;
 	private int remainKcal;
 	private int targetWeight;
 	private String userImg;
+	private String userUpdatePass;
 
 	public User() {
 	}
@@ -47,19 +47,11 @@ public class User {
 		this.userSex = userSex;
 	}
 
-	public String getUserHeight() {
-		return userHeight;
-	}
-
-	public void setUserHeight(String userHeight) {
-		this.userHeight = userHeight;
-	}
-
-	public String getUserWeight() {
+	public int getUserWeight() {
 		return userWeight;
 	}
 
-	public void setUserWeight(String userWeight) {
+	public void setUserWeight(int userWeight) {
 		this.userWeight = userWeight;
 	}
 
@@ -95,10 +87,21 @@ public class User {
 		this.userImg = userImg;
 	}
 
+	public String getUserUpdatePass() {
+		return userUpdatePass;
+	}
+
+	public void setUserUpdatePass(String userUpdatePass) {
+		this.userUpdatePass = userUpdatePass;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPass=" + userPass + ", userSex=" + userSex
-				+ ", userHeight=" + userHeight + ", userWeight=" + userWeight + ", startKcal=" + startKcal
-				+ ", remainKcal=" + remainKcal + ", targetWeight=" + targetWeight + ", userImg=" + userImg + "]";
+				+ ", userWeight=" + userWeight + ", startKcal=" + startKcal
+				+ ", remainKcal=" + remainKcal + ", targetWeight=" + targetWeight + ", userImg=" + userImg
+				+ ", userUpdatePass=" + userUpdatePass + "]";
 	}
+
+	
 }

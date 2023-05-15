@@ -60,7 +60,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 			return;
 		}
-				
+
 		// userId Token에서 꺼내기
 		String userId = JwtUtil.getUserId(token, secretKey);
 		

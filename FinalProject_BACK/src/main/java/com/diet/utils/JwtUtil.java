@@ -21,11 +21,11 @@ public class JwtUtil {
 	}
 	
 	// JWT 생성
-	public static String createJwt(String userId, String secretKey, Long expiredMs) {
+	public static String createJwt(String userId, String secretKey, Long expiredMs) {		
 		// userId만 저장해도 괜찮을 것 같다
 		Claims claims = Jwts.claims();
 		claims.put("userId", userId);
-				
+		
 		return Jwts.builder()
 				.setClaims(claims) // 내용
 				.setIssuedAt(new Date(System.currentTimeMillis())) // 만든시간
