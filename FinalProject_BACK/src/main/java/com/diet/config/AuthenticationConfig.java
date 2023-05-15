@@ -40,8 +40,11 @@ public class AuthenticationConfig {
                 .csrf().disable()
                 .cors().and() // CORS 설정 활성화
                 .authorizeRequests()
-                .antMatchers("/user/login", "/user/join", "/init").permitAll() // 유저 로그인과 회원가입은 필터링 X
-                .antMatchers(HttpMethod.POST, "/**").authenticated() // 그 외 요청에 대해서는 JWT 필수
+                // 유저 로그인과 회원가입은 필터링 X / Swagger도 필터링 안되게 만듦
+                .antMatchers("/user/login", "/user/join", "/user/joinImg/**", "/init", 
+                		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", "/swagger-ui/**").permitAll()
+
+                .antMatchers("/**").authenticated() // 그 외 요청에 대해서는 JWT 필수
                 .antMatchers("/admin/**").hasAnyRole("ADMIN") // 관리자 권한을 가진 사용자만 접근 (지금은 따로 없음)
                 .and()
                 .sessionManagement()

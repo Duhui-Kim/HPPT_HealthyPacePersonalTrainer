@@ -14,13 +14,24 @@
 	</select>
 	
 	<insert id="insert" parameterType="User">
-		INSERT INTO user
-		VALUES(#{userId}, #{userName}, #{userPass})
+		INSERT INTO user (userId, userName, userPass, userSex, startKcal, remainKcal, userImg)
+		VALUES(#{userId}, #{userName}, #{userPass}, #{userSex}, #{startKcal}, #{remainKcal}, #{userImg});
 	</insert>
 	
-	<select id="selectByIdNonSensitive" parameterType="String" resultType="User">
-		SELECT userId, userName, userSex, startKcal, remainKcal
+	<select id="selectByIdUnSensitive" parameterType="String" resultType="User">
+		SELECT userId, userName, userSex, startKcal, remainKcal, userImg
 		FROM user
 		WHERE userId = #{userId};
 	</select>
+	
+	<update id="update" parameterType="User">
+		UPDATE user
+		SET userPass = #{userPass}, userName = #{userName}, remainKcal = #{remainKcal}, userImg = #{userImg}
+		WHERE userId = #{userId};
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM user
+		WHERE userId = #{userId}
+	</delete>
 </mapper>

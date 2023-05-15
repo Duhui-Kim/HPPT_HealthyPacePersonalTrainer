@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dao.UserDao;
 import com.diet.model.dto.User;
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+//	private FileService fileService;
 	
 	@Value("${jwt.secret}") // 보안 상 노출되면 안되므로 properties에 저장
 	private String secretKey;
@@ -40,14 +44,26 @@ public class UserServiceImpl implements UserService {
 		
 		// 현재 몸무게와 목표 몸무게를 이용하여 몇 kcal를 감량해야하는지 계산
 		int remainKcal = (user.getUserWeight() - user.getTargetWeight()) * 7000;
-		
 		user.setStartKcal(remainKcal);
 		user.setRemainKcal(remainKcal);
-		
+				
 		userDao.insert(user);
 		
 		return true;
 	}
+//	// 프로필 이미지 등록
+//	@Override
+//	public boolean joinImg(String userId, MultipartFile userImg) {
+//		String fileName = fileService.uploadFile(userImg);
+//		
+//		User user = userDao.selectById(userId);
+//		
+//		if(user == null) return false;
+//		
+//		user.setUserImg(fileName);
+//		userDao.update(user);
+//		return true;
+//	}
 
 	// 로그인 method
 	@Override
@@ -58,6 +74,7 @@ public class UserServiceImpl implements UserService {
 		if(loginUser == null || !cryptPasswordEncoder.matches(user.getUserPass(), loginUser.getUserPass())) {
 			return null;
 		}
+		
 		// 있을 경우 Token 발행
 		return JwtUtil.createJwt(user.getUserId(), secretKey, expiredMs);
 	}
@@ -67,11 +84,17 @@ public class UserServiceImpl implements UserService {
 	public User getUnSensitiveData(String id) {
 		return userDao.selectByIdUnSensitive(id);
 	}
+	
+//	// 프로필 이미지 가져오기
+//	@Override
+//	public MultipartFile getUserImg(String userImg) {
+//		return fileService.downloadFile(userImg);
+//	}
 
 	// 유저 정보 업데이트
 	@Override
 	@Transactional
-	public Boolean update(User user) {
+	public boolean update(User user) {
 		User updateUser = userDao.selectById(user.getUserId());
 		
 		// 비밀번호가 같을 경우에 유저 정보 수정
@@ -90,7 +113,7 @@ public class UserServiceImpl implements UserService {
 	// 유저 삭제
 	@Override
 	@Transactional
-	public Boolean delete(User user) {
+	public boolean delete(User user) {
 		User deleteUser = userDao.selectById(user.getUserId());
 		
 		// 유저의 비밀번호가 일치할 경우에만 삭제
@@ -100,4 +123,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
+	
+	
 }

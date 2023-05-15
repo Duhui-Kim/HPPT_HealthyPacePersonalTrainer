@@ -1,5 +1,7 @@
 package com.diet.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.diet.model.dto.User;
 
 public interface UserService {
@@ -10,7 +12,12 @@ public interface UserService {
 	// 유저 정보 주기
 	public User getUnSensitiveData(String id);
 	// 유저 정보 수정
-	public Boolean update(User user);
+	public boolean update(User user);
 	// 유저 삭제
-	public Boolean delete(User user);
+	public boolean delete(User user);
+	// 프로필 이미지 등록
+//	public boolean joinImg(String userId, MultipartFile userImg);
+	// 프로필 이미지 가져오기
+//	public MultipartFile getUserImg(String userImg);
+	
 }
