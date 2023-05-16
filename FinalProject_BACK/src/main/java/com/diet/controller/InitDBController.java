@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diet.model.dao.FoodDao;
-import com.diet.model.dto.Food;
+import com.diet.model.dto.FoodAPI;
 import com.diet.model.dto.FoodFile;
-import com.diet.service.FoodService;
+import com.diet.service.InitDBService;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/init")
-public class FoodController {
+public class InitDBController {
 
 	@Autowired
-	private FoodService foodService;
+	private InitDBService foodService;
 	
 	@GetMapping
 	@ApiOperation(value = "DB에 FoodAPI 데이터를 삽입하는 method입니다.", notes = "최초 1회 실행 필요.")

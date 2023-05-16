@@ -15,11 +15,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.diet.model.dao.FoodDao;
-import com.diet.model.dto.Food;
+import com.diet.model.dto.FoodAPI;
 import com.diet.model.dto.FoodFile;
 
 @Service
-public class FoodServiceImpl implements FoodService {
+public class InitDBServiceImpl implements InitDBService {
 
 	@Value("${food.api.key}")
 	private String foodapikey;
@@ -51,8 +51,7 @@ public class FoodServiceImpl implements FoodService {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
 
-			System.out.println(jsonObject.toString());
-
+			// 데이터 Array명 "I2790"
 			JSONObject I2790 = (JSONObject) jsonObject.get("I2790");
 			JSONArray infoArr = (JSONArray) I2790.get("row");
 
@@ -69,7 +68,7 @@ public class FoodServiceImpl implements FoodService {
 				String NUTR_CONT3 = ((String) tmp.get("NUTR_CONT3")).trim();
 				String NUTR_CONT4 = ((String) tmp.get("NUTR_CONT4")).trim();
 
-				Food food = new Food(NUM, DESC_KOR, SERVING_SIZE, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3, NUTR_CONT4);
+				FoodAPI food = new FoodAPI(NUM, DESC_KOR, SERVING_SIZE, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3, NUTR_CONT4);
 				foodDao.insertFood(food);
 			}
 		} catch (Exception e) {

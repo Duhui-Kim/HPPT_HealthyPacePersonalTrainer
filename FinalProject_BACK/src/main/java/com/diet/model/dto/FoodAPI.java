@@ -1,6 +1,6 @@
 package com.diet.model.dto;
 
-public class Food {
+public class FoodAPI {
 	// 번호
 	private String NUM;
 	// 식품명
@@ -16,10 +16,10 @@ public class Food {
 	// 지방
 	private String NUTR_CONT4 = "0";
 
-	public Food() {
+	public FoodAPI() {
 	}
 
-	public Food(String nUM, String dESC_KOR, String sERVING_SIZE, String nUTR_CONT1, String nUTR_CONT2,
+	public FoodAPI(String nUM, String dESC_KOR, String sERVING_SIZE, String nUTR_CONT1, String nUTR_CONT2,
 			String nUTR_CONT3, String nUTR_CONT4) {
 		super();
 		NUM = nUM;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dao.UserImgDao;
@@ -22,6 +23,7 @@ public class FileServiceImpl implements FileService {
 	
 	// 파일 업로드 후 저장된 경로 반환
 	@Override
+	@Transactional
 	public String upload(MultipartFile uploadFile) {				
 		UserImg userImg = new UserImg();
 				

@@ -65,17 +65,17 @@ DROP TABLE IF EXISTS `board` ;
 CREATE TABLE IF NOT EXISTS `board` (
   `boardId` INT AUTO_INCREMENT,
   `userId` VARCHAR(40) NOT NULL,
+  `boardTitle` VARCHAR(100) NOT NULL,
+  `boardWriter` VARCHAR(100) NOT NULL,
   `boardContent` VARCHAR(1000) NOT NULL,
   `createTime` DATE NOT NULL,
   `updateTime` DATE NULL,
-  `boardImg` VARCHAR(100) NULL,
   `viewCnt` INT NOT NULL DEFAULT 0,
+  `boardImg` VARCHAR(300) NULL,
   PRIMARY KEY (`boardId`),
-  INDEX `userId_idx` (`userId` ASC) VISIBLE,
-    FOREIGN KEY (`userId`)
-    REFERENCES `mydb`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  FOREIGN KEY (`userId`)
+  REFERENCES `mydb`.`user` (`userId`)
+)
 ENGINE = InnoDB;
 
 
@@ -92,8 +92,6 @@ CREATE TABLE IF NOT EXISTS `review` (
   `createTime` DATE NOT NULL,
   `updateTime` DATE NULL,
   PRIMARY KEY (`reviewId`),
-  INDEX `userId_idx` (`userId` ASC) VISIBLE,
-  INDEX `boardId_idx` (`boardId` ASC) VISIBLE,
     FOREIGN KEY (`userId`)
     REFERENCES `user` (`userId`)
     ON DELETE CASCADE,
@@ -115,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `mealplan` (
   `carbo` INT NULL,
   `protein` INT NULL,
   `fat` INT NULL,
-  `timeToEat` DATE NOT NULL,
+  `eatingTime` DATE NOT NULL,
   `mealImg` VARCHAR(100) NULL,
   PRIMARY KEY (`userId`),
     FOREIGN KEY (`userId`)

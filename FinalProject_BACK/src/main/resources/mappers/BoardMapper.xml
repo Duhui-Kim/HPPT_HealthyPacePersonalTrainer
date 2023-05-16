@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.diet.model.dao.BoardDao">
+	<select id="selectAllCount" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
+
+	<select id="selectByPage" parameterType="int" resultType="board">
+		SELECT * FROM board
+		LIMIT #{limit} OFFSET #{offset};
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO board (boardId, userId, boardTitle, boardWriter, boardContent, createTime, boardImg)
+		VALUES (0, #{userId}, #{boardTitle}, #{boardWriter}, #{boardContent}, now(), #{boardImg})
+	</insert>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE board
+		SET boardTitle = #{boardTitle}, boardWriter = #{boardWriter}, boardContent = #{boardContent}, updateTime = now(), boardImg = #{boardImg}
+		WHERE boardId = #{boardId}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE boardId = #{boardId}
+	</delete>
+	
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE board
+		SET viewCnt = #{viewCnt}
+		WHERE boardId = #{boardId}
+	</update>
+</mapper>
