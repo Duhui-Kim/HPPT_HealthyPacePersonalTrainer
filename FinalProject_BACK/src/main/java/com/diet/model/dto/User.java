@@ -1,5 +1,8 @@
 package com.diet.model.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "유저 정보")
 public class User {
 	private String userId;
 	private String userName;
@@ -98,10 +101,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPass=" + userPass + ", userSex=" + userSex
-				+ ", userWeight=" + userWeight + ", startKcal=" + startKcal
-				+ ", remainKcal=" + remainKcal + ", targetWeight=" + targetWeight + ", userImg=" + userImg
-				+ ", userUpdatePass=" + userUpdatePass + "]";
+				+ ", userWeight=" + userWeight + ", startKcal=" + startKcal + ", remainKcal=" + remainKcal
+				+ ", targetWeight=" + targetWeight + ", userImg=" + userImg + ", userUpdatePass=" + userUpdatePass
+				+ "]";
 	}
 
-	
 }

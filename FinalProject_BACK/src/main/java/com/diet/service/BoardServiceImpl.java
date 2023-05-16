@@ -76,7 +76,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 게시글 하나 가져오기
-	// addCnt가 1일 경우 조회수도 증가, 0일 경우 조회수 증가하지 않음
 	@Override
 	public Board getBoardById(int boardId) {
 		Board board = boardDao.selectOne(boardId);

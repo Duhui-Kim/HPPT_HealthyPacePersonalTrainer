@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
@@ -25,7 +26,10 @@ public class SwaggerConfig {
 	@SuppressWarnings("deprecation")
 	@Bean
 	public Docket postsApi() {
+		ApiInfo apiInfo = new ApiInfo("REST API for Diet Service", "Diet App을 위한 REST API입니다.", "1.0", "localhost:8080/", "", "©두희승휘", "");
+		
 		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(apiInfo)
 				.groupName("dietApp")
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.diet.controller"))

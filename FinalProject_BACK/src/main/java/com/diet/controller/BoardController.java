@@ -36,10 +36,10 @@ public class BoardController {
 		
 		Map<String, Object> map = boardService.getBoard(current);
 		
-		if(map == null) {
-			return new ResponseEntity<Boolean> (false, HttpStatus.BAD_REQUEST);
-		} else {
+		if(map != null) {
 			return new ResponseEntity<Map<String, Object>> (map, HttpStatus.OK);			
+		} else {
+			return new ResponseEntity<Boolean> (false, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -82,10 +82,9 @@ public class BoardController {
 	@GetMapping("/detail/{boardId}")
 	@ApiOperation(value = "board 상세정보를 가져오는 method", notes = "해당하는 board가 없을 시 false 반환")
 	public ResponseEntity<?> getBoard(@PathVariable int boardId) {
-		
 		Board board = boardService.getBoardById(boardId);
 		
-		if (board == null) {
+		if (board != null) {			
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);

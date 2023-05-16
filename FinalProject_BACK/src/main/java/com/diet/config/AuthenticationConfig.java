@@ -46,10 +46,11 @@ public class AuthenticationConfig {
                  * 임시로 전체 권한 필요없게 설정
                  */ 
                 .antMatchers("/user/login", "/user/join", "/user/userImg/**", "/init", 
-                		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", "/swagger-ui/**", "/board/**").permitAll()
+                		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", "/swagger-ui/**", 
+                		"/board/**", "/likeBoard/**").permitAll()
 
                 .antMatchers("/**").authenticated() // 그 외 요청에 대해서는 JWT 필수
-                .antMatchers("/admin/**").hasAnyRole("ADMIN") // 관리자 권한을 가진 사용자만 접근 (지금은 따로 없음)
+                .antMatchers("/admin/**").hasAnyRole("ADMIN") // 관리자 권한을 가진 사용자만 접근 (지금은 관리자 기능 따로 없음)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

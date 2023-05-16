@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.diet.model.dao.LikeBoardDao">
+	<select id="selectLike" parameterType="LikeBoard" resultType="String">
+		SELECT likeId FROM likeBoard
+		WHERE userId = #{userId} AND boardId = #{boardId}
+	</select>
+
+	<insert id="insertLike" parameterType="LikeBoard">
+		INSERT INTO likeBoard
+		VALUES (0, #{userId}, #{boardId})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="LikeBoard">
+		DELETE FROM likeBoard
+		WHERE userId = #{userId} AND boardId = #{boardId}
+	</delete>
+</mapper>

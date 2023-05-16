@@ -126,9 +126,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`likeBoad`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `likeBoad` ;
+DROP TABLE IF EXISTS `likeBoard` ;
 
-CREATE TABLE IF NOT EXISTS `likeBoad` (
+CREATE TABLE IF NOT EXISTS `likeBoard` (
   `likeId` INT AUTO_INCREMENT,
   `userId` VARCHAR(40) NOT NULL,
   `boardId` INT NOT NULL,
@@ -169,6 +169,8 @@ select * from userImg;
 insert into user(userId, userPass, userName, userSex, startKcal, remainKcal)
 VALUES("test", "test123", "testUser", 1, 3000, 2000);
 
+insert into board(boardId, userId, boardTitle, boardWriter, boardContent, createTime)
+VALUES (0, "test", "testTitle", "testWriter", "testContent", now());
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

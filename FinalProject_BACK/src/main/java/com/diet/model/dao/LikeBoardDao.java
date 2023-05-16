@@ -1,5 +1,11 @@
 package com.diet.model.dao;
 
-public interface LikeBoardDao {
+import com.diet.model.dto.LikeBoard;
 
+public interface LikeBoardDao {
+	public String selectLike(LikeBoard likeBoard);
+	
+	public int insertLike(LikeBoard likeBoard);
+	
+	public int deleteLike(LikeBoard likeBoard);
 }

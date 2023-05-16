@@ -1,5 +1,8 @@
 package com.diet.model.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "좋아요 정보")
 public class LikeBoard {
 	private int likeId;
 	private String userId;

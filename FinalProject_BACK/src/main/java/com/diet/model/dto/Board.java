@@ -2,6 +2,9 @@ package com.diet.model.dto;
 
 import java.util.Date;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "게시글 정보")
 public class Board {
 	private int boardId;
 	
