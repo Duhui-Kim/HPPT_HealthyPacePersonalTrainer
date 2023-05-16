@@ -28,9 +28,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userSex` INT NOT NULL,
   `startKcal` INT NOT NULL,
   `remainKcal` INT NOT NULL,
-  `userImg` VARCHAR(100) NULL,
+  `userImg` VARCHAR(300) NULL,
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`userImg`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `userImg` (
+	`fileName` VARCHAR(300) PRIMARY KEY,
+    `type` VARCHAR(100) NOT NULL,
+    `imageData` LONGBLOB NOT NULL
+);
+
 
 -- -----------------------------------------------------
 -- Table `mydb`.`friend`
@@ -152,8 +163,14 @@ CREATE TABLE IF NOT EXISTS `foodAPI` (
   PRIMARY KEY (`NUM`))
 ENGINE = InnoDB;
 
+
 select * from foodAPI;
 select * from user;
+select * from userImg;
+
+insert into user(userId, userPass, userName, userSex, startKcal, remainKcal)
+VALUES("test", "test123", "testUser", 1, 3000, 2000);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

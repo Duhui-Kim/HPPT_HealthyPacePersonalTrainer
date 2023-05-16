@@ -1,8 +1,11 @@
 package com.diet.service;
 
+import java.io.IOException;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dto.User;
+import com.diet.model.dto.UserImg;
 
 public interface UserService {
 	// 회원가입
@@ -16,8 +19,6 @@ public interface UserService {
 	// 유저 삭제
 	public boolean delete(User user);
 	// 프로필 이미지 등록
-//	public boolean joinImg(String userId, MultipartFile userImg);
-	// 프로필 이미지 가져오기
-//	public MultipartFile getUserImg(String userImg);
+	public boolean joinImg(String userId, MultipartFile userImg) throws IOException;
 	
 }

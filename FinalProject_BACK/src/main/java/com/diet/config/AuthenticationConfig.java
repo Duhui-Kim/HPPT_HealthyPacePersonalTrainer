@@ -41,7 +41,7 @@ public class AuthenticationConfig {
                 .cors().and() // CORS 설정 활성화
                 .authorizeRequests()
                 // 유저 로그인과 회원가입은 필터링 X / Swagger도 필터링 안되게 만듦
-                .antMatchers("/user/login", "/user/join", "/user/joinImg/**", "/init", 
+                .antMatchers("/user/login", "/user/join", "/user/userImg/**", "/init", 
                 		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", "/swagger-ui/**").permitAll()
 
                 .antMatchers("/**").authenticated() // 그 외 요청에 대해서는 JWT 필수

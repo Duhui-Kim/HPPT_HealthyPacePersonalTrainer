@@ -1,5 +1,7 @@
 package com.diet.service;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +20,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Autowired
-//	private FileService fileService;
+	private FileService fileService;
 	
 	@Value("${jwt.secret}") // 보안 상 노출되면 안되므로 properties에 저장
 	private String secretKey;
@@ -51,19 +53,21 @@ public class UserServiceImpl implements UserService {
 		
 		return true;
 	}
-//	// 프로필 이미지 등록
-//	@Override
-//	public boolean joinImg(String userId, MultipartFile userImg) {
-//		String fileName = fileService.uploadFile(userImg);
-//		
-//		User user = userDao.selectById(userId);
-//		
-//		if(user == null) return false;
-//		
-//		user.setUserImg(fileName);
-//		userDao.update(user);
-//		return true;
-//	}
+	// 프로필 이미지 등록
+	@Override
+	public boolean joinImg(String userId, MultipartFile userImg) throws IOException {
+		
+		User user = userDao.selectById(userId);		
+		if(user == null) return false;
+		
+		String fileName = fileService.upload(userImg);
+		if(fileName == null) return false;
+		
+		user.setUserImg(fileName);
+		userDao.update(user);
+		
+		return true;
+	}
 
 	// 로그인 method
 	@Override
@@ -84,12 +88,6 @@ public class UserServiceImpl implements UserService {
 	public User getUnSensitiveData(String id) {
 		return userDao.selectByIdUnSensitive(id);
 	}
-	
-//	// 프로필 이미지 가져오기
-//	@Override
-//	public MultipartFile getUserImg(String userImg) {
-//		return fileService.downloadFile(userImg);
-//	}
 
 	// 유저 정보 업데이트
 	@Override

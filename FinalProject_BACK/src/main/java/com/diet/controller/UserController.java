@@ -2,12 +2,11 @@ package com.diet.controller;
 
 import java.io.IOException;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dto.User;
+import com.diet.model.dto.UserImg;
+import com.diet.service.FileService;
 import com.diet.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +32,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private FileService fileService;
+	
 	// Login method
 	// 성공 시 header에 JWT + 로그인 유저 정보 반환 / 실패 시 false 반환
 	@PostMapping("/login")
@@ -68,19 +72,33 @@ public class UserController {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
 	}
-//	// 프로필 이미지 등록
-//	@PostMapping("/joinImg/{userId}")
-//	@ApiOperation(value = "회원가입 시 프로필 이미지 등록 method입니다.")
-//	public ResponseEntity<?> joinImg(@PathVariable String userId, @RequestParam MultipartFile userImg) {
-//		
-//		Boolean joinedImg = userService.joinImg(userId, userImg);
-//		
-//		if(joinedImg) {
-//			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-//		}
-//	}
+	// 프로필 이미지 등록
+	@PostMapping("/userImg/{userId}")
+	@ApiOperation(value = "프로필 이미지를 등록하는 method입니다.", notes = "필수 : userImg")
+	public ResponseEntity<?> joinImg(@PathVariable String userId, @RequestParam MultipartFile userImg) throws IOException {
+		
+		Boolean joinedImg = userService.joinImg(userId, userImg);
+		
+		if(joinedImg) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	// 프로필 이미지 가져오기
+	@GetMapping("/userImg/{fileName}")
+	@ApiOperation(value = "유저의 프로필 이미지를 가져오는 method입니다.", notes = "필수 : fileName")
+	public ResponseEntity<?> getUserImg(@PathVariable String fileName) {
+		UserImg imgdata = fileService.getFileData(fileName);
+		
+		if(imgdata == null) 
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+			
+		byte[] userImg = fileService.download(fileName);
+		
+		return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(imgdata.getType())).body(userImg);
+	}
 	
 	// Update method
 	// 성공 시 true 반환 / 실패 시 false 반환
