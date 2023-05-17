@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dto.User;
-import com.diet.model.dto.UserImg;
+import com.diet.model.dto.ImgFile;
 import com.diet.service.FileService;
 import com.diet.service.UserService;
 
@@ -73,7 +73,7 @@ public class UserController {
 		}
 	}
 	// 프로필 이미지 등록
-	@PostMapping("/userImg/{userId}")
+	@PostMapping("/img/{userId}")
 	@ApiOperation(value = "프로필 이미지를 등록하는 method입니다.", notes = "필수 : userImg")
 	public ResponseEntity<?> joinImg(@PathVariable String userId, @RequestParam MultipartFile userImg) throws IOException {
 		
@@ -87,10 +87,10 @@ public class UserController {
 	}
 	
 	// 프로필 이미지 가져오기
-	@GetMapping("/userImg/{fileName}")
+	@GetMapping("/img/{fileName}")
 	@ApiOperation(value = "유저의 프로필 이미지를 가져오는 method입니다.", notes = "필수 : fileName")
 	public ResponseEntity<?> getUserImg(@PathVariable String fileName) {
-		UserImg imgdata = fileService.getFileData(fileName);
+		ImgFile imgdata = fileService.getFileData(fileName);
 		
 		if(imgdata == null) 
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);

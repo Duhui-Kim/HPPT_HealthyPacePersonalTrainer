@@ -2,15 +2,15 @@ package com.diet.model.dto;
 
 import java.util.Arrays;
 
-public class UserImg {
+public class ImgFile {
 	private String fileName;
 	private String type;
 	private byte[] imageData;
 	
-	public UserImg() {
+	public ImgFile() {
 	}
 
-	public UserImg(String fileName, String type, byte[] imageData) {
+	public ImgFile(String fileName, String type, byte[] imageData) {
 		super();
 		this.fileName = fileName;
 		this.type = type;

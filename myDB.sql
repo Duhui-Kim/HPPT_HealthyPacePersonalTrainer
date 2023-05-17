@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `reviewId` INT AUTO_INCREMENT,
   `userId` VARCHAR(40) NOT NULL,
   `boardId` INT NOT NULL,
+  `writer` VARCHAR(40) NOT NULL,
   `reviewContent` VARCHAR(300) NOT NULL,
   `createTime` DATE NOT NULL,
   `updateTime` DATE NULL,
@@ -99,7 +100,6 @@ CREATE TABLE IF NOT EXISTS `review` (
     REFERENCES `board` (`boardId`)
     ON DELETE CASCADE
 ) ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `mydb`.`mealplan`

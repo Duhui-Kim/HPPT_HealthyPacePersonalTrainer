@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.diet.model.dao.ReviewDao">
+	<select id="selectByBoardId" parameterType="int" resultType="Review">
+		SELECT * FROM review
+		WHERE boardId = #{boardId}
+	</select>
+
+	<insert id="insert" parameterType="Review">
+		INSERT INTO review (userId, boardId, writer, reviewContent, createTime)
+		VALUES (#{userId}, #{boardId}, #{writer}, #{reviewContent}, now())
+	</insert>
+	
+	<update id="update" parameterType="Review">
+		UPDATE review
+		SET writer = #{writer}, reviewContent = #{reviewContent}, updateTime = now()
+		WHERE reviewId = #{reviewId}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM review
+		WHERE reviewId = #{reviewId}
+	</delete>
+</mapper>

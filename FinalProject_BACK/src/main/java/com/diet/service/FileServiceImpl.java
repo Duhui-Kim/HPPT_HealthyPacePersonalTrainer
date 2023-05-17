@@ -11,53 +11,53 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.diet.model.dao.UserImgDao;
-import com.diet.model.dto.UserImg;
+import com.diet.model.dao.ImgFileDao;
+import com.diet.model.dto.ImgFile;
 import com.diet.utils.ImageUtils;
 
 @Service
 public class FileServiceImpl implements FileService {
 
 	@Autowired
-	private UserImgDao userImgDao;
+	private ImgFileDao userImgDao;
 	
 	// 파일 업로드 후 저장된 경로 반환
 	@Override
 	@Transactional
 	public String upload(MultipartFile uploadFile) {				
-		UserImg userImg = new UserImg();
+		ImgFile imgFile = new ImgFile();
 				
 		try {
 			// 파일이름 겹치지 않게 저장
 			int idx = uploadFile.getOriginalFilename().lastIndexOf('.');
 			String fileName = UUID.randomUUID() + uploadFile.getOriginalFilename().substring(idx);
 			
-			userImg.setFileName(fileName);
-			userImg.setType(uploadFile.getContentType());
-			userImg.setImageData(ImageUtils.compressImg(uploadFile.getBytes()));
+			imgFile.setFileName(fileName);
+			imgFile.setType(uploadFile.getContentType());
+			imgFile.setImageData(ImageUtils.compressImg(uploadFile.getBytes()));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		userImgDao.insertFile(userImg);
+		userImgDao.insertFile(imgFile);
 		
-		return userImg.getFileName();
+		return imgFile.getFileName();
 	}
 
-	// 파일 전달
+	// 파일이름으로 검색하여 파일 전달
 	@Override
 	public byte[] download(String fileName) {
-		UserImg userImg = userImgDao.selectFile(fileName);
+		ImgFile imgFile = userImgDao.selectFile(fileName);
 		
-		if(userImg == null) 
+		if(imgFile == null) 
 			return null;
 		else 
-			return ImageUtils.decompressImg(userImg.getImageData());
+			return ImageUtils.decompressImg(imgFile.getImageData());
 	}
 
 	// 파일 정보 가져오기
 	@Override
-	public UserImg getFileData(String fileName) {
+	public ImgFile getFileData(String fileName) {
 		return userImgDao.selectFile(fileName);
 	}
 

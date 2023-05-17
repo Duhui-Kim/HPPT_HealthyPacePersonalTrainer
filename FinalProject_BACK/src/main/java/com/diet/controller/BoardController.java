@@ -7,6 +7,7 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dto.Board;
+import com.diet.model.dto.ImgFile;
 import com.diet.service.BoardService;
+import com.diet.service.FileService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -29,6 +33,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private FileService fileService;
 	
 	@GetMapping("/{current}")
 	@ApiOperation(value = "page번호를 입력하면 해당 페이지의 10개의 게시글을 가져오는 method", notes = "현재 페이지의 게시글(최대 10개)과 총 페이지 수를 반환합니다")
@@ -103,4 +110,28 @@ public class BoardController {
 		}
 	}
 	
+	@PostMapping("/img/{boardId}")
+	@ApiOperation(value = "게시판에 사진 올리는 method", notes = "이미지 파일만 업로드해야한다")
+	public ResponseEntity<?> uploadImgFile(@PathVariable int boardId, @RequestParam MultipartFile imgFile) {
+		boolean registed = boardService.registImgFile(boardId, imgFile);
+		
+		if (registed) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/img/{fileName}")
+	@ApiOperation(value = "게시판 사진 가져오는 method", notes = "게시글에 사진이 있을 경우에만 요청해야한다")
+	public ResponseEntity<?> downloadImgFile(@PathVariable String fileName) {
+		ImgFile imgdata = fileService.getFileData(fileName);
+		
+		if(imgdata == null) 
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		
+		byte[] imgFile = fileService.download(fileName);
+		
+		return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(imgdata.getType())).body(imgFile);		
+	}
 }

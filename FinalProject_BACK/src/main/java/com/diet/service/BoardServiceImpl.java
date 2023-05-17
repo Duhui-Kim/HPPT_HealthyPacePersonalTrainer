@@ -1,5 +1,6 @@
 package com.diet.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dao.BoardDao;
 import com.diet.model.dto.Board;
@@ -19,6 +21,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardDao boardDao;
+	
+	@Autowired
+	private FileService fileService;
 	
 	// current Page에 표시할 게시글 10개를 가져오는 method
 	@Override
@@ -82,4 +87,25 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 
+	// 게시글에 파일 등록하기
+	@Override
+	@Transactional
+	public boolean registImgFile(int boardId, MultipartFile imgFile) {
+		Board board = boardDao.selectOne(boardId);
+		
+		if(board == null) return false;
+		
+		try {
+			String fileName = fileService.upload(imgFile);
+			
+			board.setBoardImg(fileName);
+			boardDao.insertBoard(board);
+		
+			return true;
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

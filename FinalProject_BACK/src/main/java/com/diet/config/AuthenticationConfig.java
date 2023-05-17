@@ -46,7 +46,7 @@ public class AuthenticationConfig {
                  * 임시로 전체 권한 필요없게 설정
                  */ 
                 .antMatchers("/user/login", "/user/join", "/user/userImg/**", "/init", 
-                		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", "/swagger-ui/**", 
+                		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", 
                 		"/board/**", "/likeBoard/**").permitAll()
 
                 .antMatchers("/**").authenticated() // 그 외 요청에 대해서는 JWT 필수

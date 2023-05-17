@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dto.User;
-import com.diet.model.dto.UserImg;
+import com.diet.model.dto.ImgFile;
 
 public interface UserService {
 	// 회원가입

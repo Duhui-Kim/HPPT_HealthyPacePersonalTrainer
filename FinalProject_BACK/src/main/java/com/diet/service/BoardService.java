@@ -3,6 +3,8 @@ package com.diet.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.diet.model.dto.Board;
 
 public interface BoardService {
@@ -17,4 +19,7 @@ public interface BoardService {
 	public int removeBoard(int boardId);
 	
 	public int increaseViewCnt(int boardId);
+
+	public boolean registImgFile(int boardId, MultipartFile imgFile);
+
 }

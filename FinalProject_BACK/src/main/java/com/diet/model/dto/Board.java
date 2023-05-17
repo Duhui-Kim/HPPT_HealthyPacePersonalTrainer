@@ -12,27 +12,15 @@ public class Board {
 	
 	private String boardContent;
 	
-	private Date createTime;
+	private String createTime;
 	
-	private Date updateTime;
+	private String updateTime;
 	
 	private int viewCnt;
 	
 	private String boardImg;
 
 	public Board() {
-	}
-
-	public Board(int boardId, String userId, String boardContent, Date createTime, Date updateTime, int viewCnt,
-			String boardImg) {
-		super();
-		this.boardId = boardId;
-		this.userId = userId;
-		this.boardContent = boardContent;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-		this.viewCnt = viewCnt;
-		this.boardImg = boardImg;
 	}
 
 	public int getBoardId() {
@@ -59,19 +47,19 @@ public class Board {
 		this.boardContent = boardContent;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
-	public Date getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 
@@ -96,5 +84,5 @@ public class Board {
 		return "Board [boardId=" + boardId + ", userId=" + userId + ", boardContent=" + boardContent + ", createTime="
 				+ createTime + ", updateTime=" + updateTime + ", viewCnt=" + viewCnt + ", boardImg=" + boardImg + "]";
 	}
-	
+
 }
