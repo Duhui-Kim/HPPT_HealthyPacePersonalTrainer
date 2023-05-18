@@ -19,7 +19,7 @@
 	</insert>
 	
 	<select id="selectByIdUnSensitive" parameterType="String" resultType="User">
-		SELECT userId, userName, userSex, startKcal, remainKcal, userImg
+		SELECT userId, userName, userSex, exerciseType, startKcal, remainKcal, userImg
 		FROM user
 		WHERE userId = #{userId};
 	</select>

@@ -47,7 +47,7 @@ public class AuthenticationConfig {
                  */ 
                 .antMatchers("/user/login", "/user/join", "/user/userImg/**", "/init", 
                 		"/swagger-ui/**", "/swagger-ui.html", "/v2/api-docs/**", "/swagger-resources/**", 
-                		"/board/**", "/likeBoard/**", "/follow/**").permitAll()
+                		"/board/**", "/likeBoard/**", "/follow/**", "/youtube").permitAll()
 
                 .antMatchers("/**").authenticated() // 그 외 요청에 대해서는 JWT 필수
                 .antMatchers("/admin/**").hasAnyRole("ADMIN") // 관리자 권한을 가진 사용자만 접근 (지금은 관리자 기능 따로 없음)

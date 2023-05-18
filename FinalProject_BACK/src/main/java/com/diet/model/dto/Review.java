@@ -9,7 +9,7 @@ public class Review {
 	private int reviewId;
 	private String userId;
 	private int boardId;
-	private String reviewTitle;
+	private String writer;
 	private String reviewContent;
 	private String createTime;
 	private String updateTime;
@@ -41,12 +41,12 @@ public class Review {
 		this.boardId = boardId;
 	}
 
-	public String getReviewTitle() {
-		return reviewTitle;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getReviewContent() {
@@ -75,8 +75,9 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", userId=" + userId + ", boardId=" + boardId + ", reviewTitle="
-				+ reviewTitle + ", reviewContent=" + reviewContent + ", createTime=" + createTime + ", updateTime="
-				+ updateTime + "]";
+		return "Review [reviewId=" + reviewId + ", userId=" + userId + ", boardId=" + boardId + ", writer=" + writer
+				+ ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "]";
 	}
+
 }

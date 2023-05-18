@@ -23,19 +23,19 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/review")
 public class ReviewController {
-	
+
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	@GetMapping("/{boardId}")
 	@ApiOperation(value = "{boardId}에 해당하는 review 반환하는 method", notes = "해당하는 리뷰가 없을 시 false를 반환합니다.")
 	public ResponseEntity<?> getReviews(@PathVariable int boardId) {
 		List<Review> reviews = reviewService.getByBoardId(boardId);
-		
-		if(reviews == null || reviews.size() <= 0) {
+
+		if (reviews == null || reviews.size() <= 0) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<List<Review>> (reviews, HttpStatus.OK);
+			return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
 		}
 	}
 
@@ -43,41 +43,41 @@ public class ReviewController {
 	@ApiOperation(value = "review 등록하는 method", notes = "필수 : userId, boardId, writer, reviewContent")
 	public ResponseEntity<?> registReview(@RequestBody Review review) {
 		int registCnt = reviewService.regist(review);
-		
-		if(registCnt > 0) {
+
+		if (registCnt > 0) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PutMapping
 	@ApiOperation(value = "review 수정하는 method", notes = "필수 : reviewId, writer, reviewContent")
 	public ResponseEntity<?> updateReview(@RequestBody Review review) {
 		int updateCnt = reviewService.modify(review);
-		
-		if(updateCnt > 0) {
+
+		if (updateCnt > 0) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@DeleteMapping("/{reviewId}")
 	@ApiOperation(value = "review를 삭제하는 method입니다.", notes = "필수 : reviewId")
 	public ResponseEntity<?> deleteReview(@PathVariable int reviewId) {
 		int removeCnt = reviewService.remove(reviewId);
-		
-		if(removeCnt > 0) {
+
+		if (removeCnt > 0) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> reviewException(Exception e) {
 		e.printStackTrace();
-		return new ResponseEntity<String> ("reviewError", HttpStatus.CONFLICT);
+		return new ResponseEntity<String>("reviewError", HttpStatus.CONFLICT);
 	}
 }

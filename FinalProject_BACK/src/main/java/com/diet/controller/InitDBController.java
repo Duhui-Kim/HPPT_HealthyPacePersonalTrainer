@@ -29,7 +29,7 @@ public class InitDBController {
 
 	@Autowired
 	private InitDBService foodService;
-	
+
 	@GetMapping
 	@ApiOperation(value = "DB에 FoodAPI 데이터를 삽입하는 method", notes = "최초 1회 실행 필요.")
 	public void init() {

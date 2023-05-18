@@ -32,34 +32,34 @@ public class FollowController {
 	public ResponseEntity<?> getIdolList(@PathVariable String userId) {
 		List<Friend> friendList = friendService.findIdols(userId);
 
-		if(friendList == null || friendList.size() == 0) {
-			return new ResponseEntity<String> (HttpStatus.NO_CONTENT);
+		if (friendList == null || friendList.size() == 0) {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		} else {
-			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);			
+			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/followed/{userId}")
 	@ApiOperation(value = "{userId}를 팔로우하는 친구 목록 불러오는 method", notes = "팔로우하는 친구가 없을 시 null 반환")
 	public ResponseEntity<?> getFanList(@PathVariable String userId) {
 		List<Friend> friendList = friendService.findFans(userId);
 
-		if(friendList == null || friendList.size() == 0) {
-			return new ResponseEntity<String> (HttpStatus.NO_CONTENT);
+		if (friendList == null || friendList.size() == 0) {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		} else {
-			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);			
+			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/info/{userName}")
 	@ApiOperation(value = "{userName}을 포함하는 친구의 정보를 가져오는 method", notes = "해당하는 친구가 없을 시 null 반환")
 	public ResponseEntity<?> getFriendByName(@PathVariable String userName) {
 		List<Friend> friendList = friendService.findByName(userName);
 
-		if(friendList == null || friendList.size() == 0) {
-			return new ResponseEntity<String> (HttpStatus.NO_CONTENT);
+		if (friendList == null || friendList.size() == 0) {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		} else {
-			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);			
+			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
 		}
 	}
 
@@ -90,6 +90,6 @@ public class FollowController {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> followException(Exception e) {
 		e.printStackTrace();
-		return new ResponseEntity<String> ("FollowingError", HttpStatus.CONFLICT);
+		return new ResponseEntity<String>("FollowingError", HttpStatus.CONFLICT);
 	}
 }
