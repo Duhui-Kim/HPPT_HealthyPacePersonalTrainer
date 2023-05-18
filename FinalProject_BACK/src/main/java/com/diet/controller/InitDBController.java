@@ -31,7 +31,7 @@ public class InitDBController {
 	private InitDBService foodService;
 	
 	@GetMapping
-	@ApiOperation(value = "DB에 FoodAPI 데이터를 삽입하는 method입니다.", notes = "최초 1회 실행 필요.")
+	@ApiOperation(value = "DB에 FoodAPI 데이터를 삽입하는 method", notes = "최초 1회 실행 필요.")
 	public void init() {
 
 		// 1. JSON 파일이 없을 경우 => foodAPI로부터 받아와 DB에 저장

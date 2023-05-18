@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.diet.model.dao.FriendDao">
+	<select id="selectIdols" parameterType="String" resultType="String">
+		SELECT friendId FROM friend
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="selectFans" parameterType="String" resultType="String">
+		SELECT userId FROM friend
+		WHERE friendId = #{userId}
+	</select>
+	
+	<select id="selectFriend" parameterType="String" resultType="Friend">
+		SELECT * FROM user
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="selectByName" parameterType="String" resultType="Friend">
+		SELECT * FROM user
+		WHERE userName LIKE CONCAT("%", #{userName}, "%")
+	</select>
+	
+	<insert id="insert" parameterType="String">
+		INSERT INTO friend
+		VALUES(#{userId}, #{friendId})
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM friend
+		WHERE userId = #{userId}, friendId = #{friendId}
+	</delete>
+</mapper>

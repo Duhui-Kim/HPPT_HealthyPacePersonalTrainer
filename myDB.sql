@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userPass` VARCHAR(100) NOT NULL,
   `userName` VARCHAR(40) NOT NULL,
   `userSex` INT NOT NULL,
+  `exerciseType` VARCHAR(20) NOT NULL,
   `startKcal` INT NOT NULL,
   `remainKcal` INT NOT NULL,
   `userImg` VARCHAR(300) NULL,
@@ -51,7 +52,6 @@ DROP TABLE IF EXISTS `friend` ;
 CREATE TABLE IF NOT EXISTS `friend` (
   `userId` VARCHAR(40) NOT NULL,
   `friendId` VARCHAR(40) NULL,
-  PRIMARY KEY (`userId`),
   FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   FOREIGN KEY (`friendId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
@@ -107,15 +107,16 @@ CREATE TABLE IF NOT EXISTS `review` (
 DROP TABLE IF EXISTS `mealplan` ;
 
 CREATE TABLE IF NOT EXISTS `mealplan` (
+  `mealId` INT NOT NULL AUTO_INCREMENT,
   `userId` VARCHAR(40) NOT NULL,
   `menuName` VARCHAR(50) NOT NULL,
-  `menuKcal` INT NOT NULL,
-  `carbo` INT NULL,
-  `protein` INT NULL,
-  `fat` INT NULL,
+  `menuKcal` DOUBLE NOT NULL,
+  `carbo` DOUBLE NULL,
+  `protein` DOUBLE NULL,
+  `fat` DOUBLE NULL,
   `eatingTime` DATE NOT NULL,
   `mealImg` VARCHAR(100) NULL,
-  PRIMARY KEY (`userId`),
+  PRIMARY KEY (`mealId`),
     FOREIGN KEY (`userId`)
     REFERENCES `mydb`.`user` (`userId`)
     ON DELETE CASCADE
@@ -165,9 +166,26 @@ ENGINE = InnoDB;
 select * from foodAPI;
 select * from user;
 select * from userImg;
+select * from friend;
 
-insert into user(userId, userPass, userName, userSex, startKcal, remainKcal)
-VALUES("test", "test123", "testUser", 1, 3000, 2000);
+CREATE TABLE test (
+	`date` DATE
+);
+
+INSERT INTO test 
+VALUES (now());
+
+INSERT INTO test
+VALUES ("2018-05-18");
+
+SELECT * FROM test;
+
+
+
+-- 남자/여자 유산소/근력 맨몸/기구 루틴
+insert into user(userId, userPass, userName, userSex, exerciseType, startKcal, remainKcal)
+VALUES("test33", "test123", "testUser", 1, "남자 유산소 맨몸 루틴", 3000, 2000), 
+("ddd123", "test123", "testUser", 1, "남자 유산소 맨몸 루틴", 3000, 2000);
 
 insert into board(boardId, userId, boardTitle, boardWriter, boardContent, createTime)
 VALUES (0, "test", "testTitle", "testWriter", "testContent", now());

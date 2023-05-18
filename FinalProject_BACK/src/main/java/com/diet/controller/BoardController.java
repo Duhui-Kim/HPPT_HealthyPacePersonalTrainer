@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -133,5 +134,11 @@ public class BoardController {
 		byte[] imgFile = fileService.download(fileName);
 		
 		return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(imgdata.getType())).body(imgFile);		
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> boardException(Exception e) {
+		e.printStackTrace();
+		return new ResponseEntity<String> ("BoardError", HttpStatus.BAD_REQUEST);
 	}
 }

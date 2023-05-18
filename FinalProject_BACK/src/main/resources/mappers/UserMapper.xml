@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="insert" parameterType="User">
-		INSERT INTO user (userId, userName, userPass, userSex, startKcal, remainKcal, userImg)
-		VALUES(#{userId}, #{userName}, #{userPass}, #{userSex}, #{startKcal}, #{remainKcal}, #{userImg});
+		INSERT INTO user (userId, userName, userPass, userSex, exerciseType, startKcal, remainKcal, userImg)
+		VALUES(#{userId}, #{userName}, #{userPass}, #{userSex}, #{exerciseType}, #{startKcal}, #{remainKcal}, #{userImg});
 	</insert>
 	
 	<select id="selectByIdUnSensitive" parameterType="String" resultType="User">

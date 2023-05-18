@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,7 +63,7 @@ public class UserController {
 	// Join method
 	// 성공 시 true 반환 / 실패 시 false 반환
 	@PostMapping("/join")
-	@ApiOperation(value = "회원가입 method입니다. 가입 성공 시 true를 반환합니다.", notes = "필수 : userId, userName, userPass, userSex, userWeight, targetWeight")
+	@ApiOperation(value = "회원가입 method입니다. 가입 성공 시 true를 반환합니다.", notes = "필수 : userId, userName, userPass, userSex, exerciseType, userWeight, targetWeight")
 	public ResponseEntity<?> join(@RequestBody User user) {
 		Boolean joined = userService.join(user);
 
@@ -128,5 +129,9 @@ public class UserController {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> userException(Exception e) {
+		e.printStackTrace();
+		return new ResponseEntity<String> ("userError", HttpStatus.CONFLICT);
+	}
 }

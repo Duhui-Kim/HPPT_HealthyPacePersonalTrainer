@@ -8,6 +8,7 @@ public class User {
 	private String userName;
 	private String userPass;
 	private int userSex;
+	private String exerciseType;
 	private int userWeight;
 	private int startKcal;
 	private int remainKcal;
@@ -48,6 +49,14 @@ public class User {
 
 	public void setUserSex(int userSex) {
 		this.userSex = userSex;
+	}
+
+	public String getExerciseType() {
+		return exerciseType;
+	}
+
+	public void setExerciseType(String exerciseType) {
+		this.exerciseType = exerciseType;
 	}
 
 	public int getUserWeight() {
@@ -101,9 +110,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPass=" + userPass + ", userSex=" + userSex
-				+ ", userWeight=" + userWeight + ", startKcal=" + startKcal + ", remainKcal=" + remainKcal
-				+ ", targetWeight=" + targetWeight + ", userImg=" + userImg + ", userUpdatePass=" + userUpdatePass
-				+ "]";
+				+ ", exerciseType=" + exerciseType + ", userWeight=" + userWeight + ", startKcal=" + startKcal
+				+ ", remainKcal=" + remainKcal + ", targetWeight=" + targetWeight + ", userImg=" + userImg
+				+ ", userUpdatePass=" + userUpdatePass + "]";
 	}
-
 }
