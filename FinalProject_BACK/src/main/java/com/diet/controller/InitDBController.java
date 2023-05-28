@@ -37,6 +37,8 @@ public class InitDBController {
 		// 1. JSON 파일이 없을 경우 => foodAPI로부터 받아와 DB에 저장
 		// 한 번에 최대 1000개씩만 요청 가능..
 //		for(int i=1; i<90608; i += 1000) {
+//			System.out.println(i + "번 실행");
+//			
 //			foodService.apiToDB(i, i+999);
 //		}
 

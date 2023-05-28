@@ -1,5 +1,6 @@
 package com.diet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,13 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@GetMapping("/{boardId}")
-	@ApiOperation(value = "{boardId}에 해당하는 review 반환하는 method", notes = "해당하는 리뷰가 없을 시 false를 반환합니다.")
+	@ApiOperation(value = "{boardId}에 해당하는 review 반환하는 method", notes = "해당하는 리뷰가 없을 시 새로운 list를 반환합니다.")
 	public ResponseEntity<?> getReviews(@PathVariable int boardId) {
 		List<Review> reviews = reviewService.getByBoardId(boardId);
 
 		if (reviews == null || reviews.size() <= 0) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+			reviews = new ArrayList<Review>();
+			return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
 		}

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diet.model.dto.User;
+import com.diet.model.dao.UserDao;
 import com.diet.model.dto.ImgFile;
 import com.diet.service.FileService;
 import com.diet.service.UserService;
@@ -35,7 +36,7 @@ public class UserController {
 
 	@Autowired
 	private FileService fileService;
-
+	
 	// Login method
 	// 성공 시 header에 JWT + 로그인 유저 정보 반환 / 실패 시 false 반환
 	@PostMapping("/login")
@@ -44,7 +45,7 @@ public class UserController {
 		HttpHeaders headers = new HttpHeaders();
 
 		String jwt = userService.login(user);
-
+		
 		// null인 경우 로그인 실패
 		if (jwt == null) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
@@ -59,7 +60,16 @@ public class UserController {
 		// 로그인 성공 시 로그인 유저 정보 반환
 		return new ResponseEntity<User>(loginUser, headers, HttpStatus.OK);
 	}
-
+	
+	// 유저의 정보를 가져오는 method입니다.
+	@GetMapping("/UnSensitiveData/{userId}")
+	public ResponseEntity<?> getUnSensitiveDate(@PathVariable String userId) {
+		
+		User loginUser = userService.getUnSensitiveData(userId);
+		
+		return new ResponseEntity<User>(loginUser, HttpStatus.OK);
+	}
+	
 	// Join method
 	// 성공 시 true 반환 / 실패 시 false 반환
 	@PostMapping("/join")
@@ -76,11 +86,10 @@ public class UserController {
 
 	// 프로필 이미지 등록
 	@PostMapping("/img/{userId}")
-	@ApiOperation(value = "프로필 이미지를 등록하는 method입니다.", notes = "필수 : userImg")
-	public ResponseEntity<?> joinImg(@PathVariable String userId, @RequestParam MultipartFile userImg)
-			throws IOException {
+	@ApiOperation(value = "프로필 이미지를 등록하는 method입니다.", notes = "필수 : userId, imgFile")
+	public ResponseEntity<?> joinImg(@PathVariable String userId, @RequestParam("imgFile") MultipartFile imgFile) throws IOException {
 
-		Boolean joinedImg = userService.joinImg(userId, userImg);
+		Boolean joinedImg = userService.joinImg(userId, imgFile);
 
 		if (joinedImg) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
@@ -88,11 +97,18 @@ public class UserController {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
 
 	// 프로필 이미지 가져오기
-	@GetMapping("/img/{fileName}")
-	@ApiOperation(value = "유저의 프로필 이미지를 가져오는 method입니다.", notes = "필수 : fileName")
-	public ResponseEntity<?> getUserImg(@PathVariable String fileName) {
+	@GetMapping("/img/{userId}")
+	@ApiOperation(value = "유저의 프로필 이미지를 가져오는 method입니다.", notes = "필수 : userId")
+	public ResponseEntity<?> getUserImg(@PathVariable String userId) {
+		String fileName = userService.getFileName(userId);
+		
+		if(fileName == null) 
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		
 		ImgFile imgdata = fileService.getFileData(fileName);
 
 		if (imgdata == null)
@@ -102,11 +118,24 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(imgdata.getType())).body(userImg);
 	}
+	
+	// 아이디 중복 체크
+	@GetMapping("/join/check/{userId}")
+	@ApiOperation(value = "유저 아이디 중복체크 method입니다", notes = "필수 : userId")
+	public ResponseEntity<?> checkDuplication(@PathVariable String userId) {
+		User user = userService.getUnSensitiveData(userId);
+		
+		if(user == null) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		}
+	}
 
 	// Update method
 	// 성공 시 true 반환 / 실패 시 false 반환
 	@PutMapping
-	@ApiOperation(value = "회원정보 수정 method입니다.", notes = "필수 : userId, userPass, userName, userImg, remainkcal.")
+	@ApiOperation(value = "회원정보 수정 method입니다.", notes = "필수 : userId, userPass, userName, userImg, exerciseType, remainkcal.")
 	public ResponseEntity<?> update(@RequestBody User user) {
 		Boolean updated = userService.update(user);
 

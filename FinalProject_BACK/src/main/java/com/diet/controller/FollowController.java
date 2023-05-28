@@ -1,5 +1,6 @@
 package com.diet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diet.model.dto.Friend;
+import com.diet.model.dto.User;
 import com.diet.service.FriendService;
 
 import io.swagger.annotations.ApiOperation;
@@ -28,39 +30,36 @@ public class FollowController {
 	private FriendService friendService;
 
 	@GetMapping("/{userId}")
-	@ApiOperation(value = "{userId}가 팔로잉한 친구 목록 불러오는 method", notes = "팔로잉한 친구가 없을 시 null 반환")
+	@ApiOperation(value = "{userId}가 팔로잉한 친구 목록 불러오는 method", notes = "팔로잉한 친구가 없을 시 빈 배열 반환")
 	public ResponseEntity<?> getIdolList(@PathVariable String userId) {
 		List<Friend> friendList = friendService.findIdols(userId);
 
-		if (friendList == null || friendList.size() == 0) {
-			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
-		}
+		if (friendList == null || friendList.size() == 0)
+			friendList = new ArrayList<>();
+		
+		return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
 	}
 
 	@GetMapping("/followed/{userId}")
-	@ApiOperation(value = "{userId}를 팔로우하는 친구 목록 불러오는 method", notes = "팔로우하는 친구가 없을 시 null 반환")
+	@ApiOperation(value = "{userId}를 팔로우하는 친구 목록 불러오는 method", notes = "팔로우하는 친구가 없을 시 빈 배열 반환")
 	public ResponseEntity<?> getFanList(@PathVariable String userId) {
 		List<Friend> friendList = friendService.findFans(userId);
 
-		if (friendList == null || friendList.size() == 0) {
-			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
-		}
+		if (friendList == null || friendList.size() == 0)
+			friendList = new ArrayList<>();
+		
+		return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
 	}
 
-	@GetMapping("/info/{userName}")
-	@ApiOperation(value = "{userName}을 포함하는 친구의 정보를 가져오는 method", notes = "해당하는 친구가 없을 시 null 반환")
-	public ResponseEntity<?> getFriendByName(@PathVariable String userName) {
-		List<Friend> friendList = friendService.findByName(userName);
+	@GetMapping("/info")
+	@ApiOperation(value = "{userName}을 포함하는 친구의 정보를 가져오는 method", notes = "userName : 검색어 / userId : 검색하는 사람")
+	public ResponseEntity<?> getFriendByName(@RequestParam String userId, @RequestParam String userName) {
+		List<Friend> friendList = friendService.findByName(userName, userId);
 
-		if (friendList == null || friendList.size() == 0) {
-			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
-		}
+		if (friendList == null || friendList.size() == 0)
+			friendList = new ArrayList<>();
+		
+		return new ResponseEntity<List<Friend>>(friendList, HttpStatus.OK);
 	}
 
 	@PostMapping

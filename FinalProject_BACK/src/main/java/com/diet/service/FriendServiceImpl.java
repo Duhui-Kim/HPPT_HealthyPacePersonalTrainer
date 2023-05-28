@@ -44,9 +44,10 @@ public class FriendServiceImpl implements FriendService {
 	}
 
 	// 이름으로 친구 검색
+	// userName : 검색하려는 이름 / userId : 검색하는 사람
 	@Override
-	public List<Friend> findByName(String userName) {
-		return friendDao.selectByName(userName);
+	public List<Friend> findByName(String userName, String userId) {
+		return friendDao.selectByName(userName, userId);
 	}
 
 	// 친구 등록

@@ -1,8 +1,0 @@
-package com.diet.model.dao;
-
-import com.diet.model.dto.User;
-
-public interface UserDao {
-	public User selectById(String id);
-	public int insert(User user);
-}

@@ -1,5 +1,0 @@
-# jwt secret key
-jwt.secret = secret.secret.secret.secretKey
-
-# food openApi key
-food.api.key = 1266893babb4426e9c4a

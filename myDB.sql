@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userName` VARCHAR(40) NOT NULL,
   `userSex` INT NOT NULL,
   `exerciseType` VARCHAR(20) NOT NULL,
-  `startKcal` INT NOT NULL,
-  `remainKcal` INT NOT NULL,
+  `startKcal` DOUBLE NOT NULL,
+  `remainKcal` DOUBLE NOT NULL,
   `userImg` VARCHAR(300) NULL,
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;
@@ -115,12 +115,12 @@ CREATE TABLE IF NOT EXISTS `mealplan` (
   `protein` DOUBLE NULL,
   `fat` DOUBLE NULL,
   `eatingTime` DATE NOT NULL,
-  `mealImg` VARCHAR(100) NULL,
+  `divideTime` INT NOT NULL,
+  `mealImg` VARCHAR(300) NULL,
   PRIMARY KEY (`mealId`),
     FOREIGN KEY (`userId`)
     REFERENCES `mydb`.`user` (`userId`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -162,33 +162,43 @@ CREATE TABLE IF NOT EXISTS `foodAPI` (
   PRIMARY KEY (`NUM`))
 ENGINE = InnoDB;
 
+-- 남자/여자 유산소/근력 맨몸/기구 루틴
+insert into user(userId, userPass, userName, userSex, exerciseType, startKcal, remainKcal)
+VALUES
+("test", "1234", "testUser", 2, "여자+근력+맨몸+루틴", 3000, 1500),
+("test1", "1234", "testUser1", 1, "남자+유산소+기구+루틴", 4000, 3200), 
+("test2", "1234", "testUser2", 1, "남자+근력+맨몸+루틴", 5000, 4000);
+
+INSERT INTO review(userId, boardId, writer, reviewContent, createTime)
+VALUES ("test", 1, "testUser", "아주아주아주아주좋은글입니다.아주아주아주아주좋은글입니다.아주아주아주아주좋은글입니다.", now()),
+("test2", 1, "testUser2", "댓글 하나 더 추가하기.댓글 하나 더 추가하기.댓글 하나 더 추가하기.댓글 하나 더 추가하기.", now());
+
+
+insert into board(boardId, userId, boardTitle, boardWriter, boardContent, createTime)
+VALUES (0, "test", "testTitle", "testWriter", "testContent", now()),
+(0, "test", "testTitle1", "testWriter", "testContent", now()),
+(0, "test", "testTitle2", "testWriter", "testContent", now()),
+(0, "test", "testTitle13", "testWriter", "testContent", now()),
+(0, "test", "testTitle14", "testWriter", "testContent", now()),
+(0, "test", "testTitle15", "testWriter", "testContent", now()),
+(0, "test", "testTitle61", "testWriter", "testContent", now()),
+(0, "test", "testTitle17", "testWriter", "testContent", now()),
+(0, "test", "testTitle18", "testWriter", "testContent", now()),
+(0, "test", "testTitle19", "testWriter", "testContent", now()),
+(0, "test", "testTitle10", "testWriter", "testContent", now());
+
+INSERT INTO mealplan (userId, menuName, menuKcal, eatingTime, divideTime, mealImg)
+VALUES ('test', '닭갈비', 300, now(), 1, '이미지123'),
+('test', '돼지갈비', 600, now(), 2, '이미지456');
+
 
 select * from foodAPI;
 select * from user;
 select * from userImg;
 select * from friend;
-
-CREATE TABLE test (
-	`date` DATE
-);
-
-INSERT INTO test 
-VALUES (now());
-
-INSERT INTO test
-VALUES ("2018-05-18");
-
-SELECT * FROM test;
-
-
-
--- 남자/여자 유산소/근력 맨몸/기구 루틴
-insert into user(userId, userPass, userName, userSex, exerciseType, startKcal, remainKcal)
-VALUES("test33", "test123", "testUser", 1, "남자 유산소 맨몸 루틴", 3000, 2000), 
-("ddd123", "test123", "testUser", 1, "남자 유산소 맨몸 루틴", 3000, 2000);
-
-insert into board(boardId, userId, boardTitle, boardWriter, boardContent, createTime)
-VALUES (0, "test", "testTitle", "testWriter", "testContent", now());
+select * from mealplan;
+select * from board;
+select * from review;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

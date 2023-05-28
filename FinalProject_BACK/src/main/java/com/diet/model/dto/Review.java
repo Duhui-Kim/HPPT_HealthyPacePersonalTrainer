@@ -76,8 +76,10 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", userId=" + userId + ", boardId=" + boardId + ", writer=" + writer
-				+ ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "]";
+				+ ", reviewContent=" + reviewContent + ", createTime=" + createTime + ", updateTime=" + updateTime
+				+ "]";
 	}
+
+	
 
 }

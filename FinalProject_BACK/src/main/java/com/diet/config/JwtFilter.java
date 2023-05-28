@@ -45,8 +45,7 @@ public class JwtFilter extends OncePerRequestFilter {
 		
 		// token 없거나 잘못된 토큰이면 Block
 		if(authorization == null || !authorization.startsWith("Bearer ")) {
-			System.out.println(authorization);
-			System.out.println("AUTHORIZATION을 잘못 보냈습니다");
+			System.out.println("사용자 인증이 추가되지 않았습니다");
 			filterChain.doFilter(request, response);
 			return;
 		}

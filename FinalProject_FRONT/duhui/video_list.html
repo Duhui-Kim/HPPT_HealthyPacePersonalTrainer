@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HPPT - BoardList</title>
+
+    <!-- fabicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="../fabicon/favicon-96x96.png"
+    />
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem;
+        border: 1px solid black;
+        background-color: #ffffff;
+      }
+
+      .logo img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+      }
+
+      .menu li {
+        margin-left: 0.625rem;
+      }
+
+      .menu li a {
+        text-decoration: none;
+        color: #333;
+        padding: 0.3125rem;
+      }
+
+      .menu li a:hover {
+        background-color: gray;
+        color: #fff;
+      }
+
+      .search-container {
+        display: grid;
+        grid-template-columns: repeat(5, 7rem);
+        grid-template-rows: repeat(1, 3rem);
+        justify-content: center;
+        grid-gap: 3rem;
+        margin: 4rem 1rem 3rem 1rem;
+      }
+
+      .search-container-button {
+        border-radius: 40px;
+        text-align: center;
+        padding: 0.6rem;
+        font-size: large;
+        font-weight: bold;
+      }
+
+      .btn-1 {
+        background-color: #edadad;
+        transition: 0.3s ease;
+      }
+      .btn-2 {
+        background-color: #f6e4a3;
+        transition: 0.3s ease;
+      }
+      .btn-3 {
+        background-color: #97dbe4;
+        transition: 0.3s ease;
+      }
+      .btn-4 {
+        background-color: #daa8f9;
+        transition: 0.3s ease;
+      }
+      .btn-5 {
+        background-color: #e8c7b0;
+        transition: 0.3s ease;
+      }
+      .btn-1:hover {
+        background-color: #ee5252;
+        color: #ffffff;
+      }
+      .btn-2:hover {
+        background-color: #e4b407;
+        color: #ffffff;
+      }
+      .btn-3:hover {
+        background-color: #13cbe4;
+        color: #ffffff;
+      }
+      .btn-4:hover {
+        background-color: #9e38dd;
+        color: #ffffff;
+      }
+      .btn-5:hover {
+        background-color: #e47a2e;
+        color: #ffffff;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(2, 40rem);
+        grid-gap: 5rem;
+        justify-content: center;
+        margin-bottom: 5rem;
+      }
+
+      .video {
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        width: 35rem;
+        height: 30rem;
+        transition: 0.4s ease;
+        box-shadow: 0 2px 4px rgba(134, 134, 134, 1);
+        display: grid;
+        grid-template-rows: repeat(8, 5.2rem);
+        opacity: 0.7;
+      }
+
+      .video:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+        opacity: 1;
+      }
+
+      .video > img {
+        grid-row: 1 / span 5;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .video-title {
+        text-align: center;
+        padding: 1rem;
+        font-size: x-large;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <img src="../hwi/logo_HPPT.png" alt="로고" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">식단</a></li>
+          <li><a href="#">운동영상</a></li>
+          <li><a href="#">게시판</a></li>
+          <li><a href="#">마이페이지</a></li>
+          <li><a href="#">로그아웃</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 검색버튼들 -->
+      <section class="search-container">
+        <div class="search-container-button btn-1">추천</div>
+        <div class="search-container-button btn-2">상체</div>
+        <div class="search-container-button btn-3">하체</div>
+        <div class="search-container-button btn-4">코어</div>
+        <div class="search-container-button btn-5">유산소</div>
+      </section>
+
+      <article>
+        <!-- 영상 들어갈 영역-->
+        <div class="container">
+          <div class="video">
+            <img src="https://img.youtube.com/vi/YwC0m0XaD2E/0.jpg" />
+            <div class="video-title">
+              영상 제목 입력 길게 입력하면 점점점으로 바뀝니다
+            </div>
+          </div>
+          <div class="video"></div>
+          <div class="video"></div>
+          <div class="video"></div>
+          <div class="video"></div>
+          <div class="video"></div>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

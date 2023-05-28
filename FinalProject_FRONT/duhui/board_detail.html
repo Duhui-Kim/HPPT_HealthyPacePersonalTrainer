@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HPPT - BoardDetail</title>
+
+    <!-- fabicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="../fabicon/favicon-96x96.png"
+    />
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem;
+        border: 1px solid black;
+        background-color: #ffffff;
+      }
+
+      .logo img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+      }
+
+      .menu li {
+        margin-left: 0.625rem;
+      }
+
+      .menu li a {
+        text-decoration: none;
+        color: #333;
+        padding: 0.3125rem;
+      }
+
+      .menu li a:hover {
+        background-color: gray;
+        color: #fff;
+      }
+
+      .search-container {
+        display: grid;
+        grid-template-columns: repeat(5, 10rem);
+        grid-template-rows: repeat(1, 3rem);
+        justify-content: center;
+        grid-gap: 1rem;
+        margin: 4rem 1rem 3rem 1rem;
+      }
+
+      .search-input {
+        grid-column: 1 / span 4;
+        border-radius: 10px;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .search-button {
+        border-radius: 10px;
+        background-color: #ffffff;
+        transition: 0.4s ease;
+      }
+
+      .search-button:hover {
+        background-color: #ffd4d4;
+      }
+
+      .detail {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 6rem;
+      }
+
+      .detail-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border: 1px solid black;
+        border-radius: 30px;
+        width: 80rem;
+        height: 45rem;
+        overflow: hidden;
+      }
+
+      .detail-container-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .detail-container-board {
+        display: grid;
+        grid-template-rows: repeat(13, 2.5rem);
+        gap: 1rem;
+      }
+
+      .detail-container-board > * {
+        padding: 2rem;
+      }
+
+      .detail-container-board-title {
+        grid-row: 1 / span 1;
+        padding: 0.6rem 2rem;
+        display: grid;
+        grid-template-columns: repeat(3, 11rem);
+        grid-gap: 1rem;
+      }
+
+      .detail-container-board-title-title {
+        font-size: 2rem;
+        font-weight: bold;
+        grid-column: 1 / span 2;
+      }
+
+      .detail-container-board-title-like {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+      }
+
+      .detail-container-board-title-like > i {
+        color: red;
+        font-size: xx-large;
+        transition: 0.4s ease;
+      }
+
+      .detail-container-board-title-like > i:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+
+      .detail-container-board-content {
+        grid-row: 2 / span 4;
+        overflow-y: scroll;
+        max-height: 15rem;
+        padding: 1rem 2rem;
+      }
+
+      .detail-container-board-content::-webkit-scrollbar {
+        width: 0.5rem; /* 스크롤 바의 너비 */
+      }
+
+      .detail-container-board-content::-webkit-scrollbar-track {
+        background-color: transparent; /* 스크롤 바 트랙의 배경색 */
+      }
+
+      .detail-container-board-content::-webkit-scrollbar-thumb {
+        background-color: #888; /* 스크롤 바 썸의 색상 */
+        border-radius: 5px; /* 스크롤 바 썸의 모서리 반경 */
+      }
+
+      .detail-container-board-content::-webkit-scrollbar-thumb:hover {
+        background-color: #555; /* 스크롤 바 썸의 호버 상태 색상 */
+      }
+
+      .detail-container-board-writer {
+        display: flex;
+        justify-content: space-between;
+        grid-row: 6 / span 1;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: 700;
+        background-color: #cde990;
+        padding: 1.73rem 2.6rem 1.73rem 1.73rem;
+      }
+
+      .detail-container-board-writer > button {
+        background-color: #ffffff;
+        font-size: 1rem;
+        border: 0px;
+        width: 4rem;
+        height: 2rem;
+        color: green;
+        border-radius: 5px;
+        transition: 0.4s ease;
+      }
+
+      .detail-container-board-writer > button:hover {
+        background-color: green;
+        color: #ffffff;
+      }
+
+      .detail-container-board-count {
+        display: flex;
+        justify-content: space-between;
+        grid-row: 7 / span 1;
+        padding: 1rem 2.6rem 1rem 2rem;
+      }
+
+      .detail-container-board-count > * {
+        font-weight: bold;
+      }
+
+      .detail-container-board-reviews {
+        grid-row: 8 / span 5;
+        overflow-y: scroll;
+        max-height: 15rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
+      }
+
+      .detail-container-board-reviews::-webkit-scrollbar {
+        width: 0.5rem; /* 스크롤 바의 너비 */
+      }
+
+      .detail-container-board-reviews::-webkit-scrollbar-track {
+        background-color: transparent; /* 스크롤 바 트랙의 배경색 */
+      }
+
+      .detail-container-board-reviews::-webkit-scrollbar-thumb {
+        background-color: #888; /* 스크롤 바 썸의 색상 */
+        border-radius: 5px; /* 스크롤 바 썸의 모서리 반경 */
+      }
+
+      .detail-container-board-reviews::-webkit-scrollbar-thumb:hover {
+        background-color: #555; /* 스크롤 바 썸의 호버 상태 색상 */
+      }
+
+      .detail-container-board-review {
+        display: grid;
+        grid-template-columns: repeat(14, 2rem);
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+      }
+
+      .detail-container-board-review-writer {
+        grid-column: 1 / span 2;
+        font-weight: bold;
+      }
+
+      .detail-container-board-review-content {
+        grid-column: 3 / span 11;
+      }
+
+      .detail-container-board-review-button {
+        background-color: #ffffff;
+        border: 0px;
+        width: 3rem;
+        height: 1.5rem;
+        color: red;
+        transition: 0.6s ease;
+      }
+
+      .detail-container-board-review-button:hover {
+        height: 1.5rem;
+        background-color: red;
+        border-radius: 5px;
+        color: #ffffff;
+      }
+
+      .detail-container-board-review-input {
+        grid-row: 13 / span 1;
+        padding: 0rem 2rem 0rem 2rem;
+      }
+
+      .detail-container-board-review-input {
+        display: grid;
+        grid-template-columns: repeat(13, 2rem);
+        grid-template-rows: 0;
+        gap: 0.7rem;
+      }
+
+      .detail-container-board-review-input > input {
+        grid-column: 1 / span 12;
+        height: 1.5rem;
+        border-radius: 5px;
+        border-color: #ffd4d4;
+      }
+
+      .detail-container-board-review-input > button {
+        grid-column: 13 / span 1;
+        width: 3rem;
+        height: 1.8rem;
+        border: 2px solid #ffd4d4;
+        border-radius: 5px;
+        background-color: #ffd4d4;
+        transition: 0.4s ease;
+      }
+
+      .detail-container-board-review-input > button:hover {
+        border: 2px solid #ff7777;
+        background-color: #ff7777;
+        color: #ffffff;
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/07f579c9d6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <img src="../hwi/logo_HPPT.png" alt="로고" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">식단</a></li>
+          <li><a href="#">운동영상</a></li>
+          <li><a href="#">게시판</a></li>
+          <li><a href="#">마이페이지</a></li>
+          <li><a href="#">로그아웃</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="search-container">
+        <input type="text" class="search-input" />
+        <button class="search-button">검색</button>
+      </section>
+
+      <article class="detail">
+        <!-- 게시글 상세 영역-->
+        <div class="detail-container">
+          <!-- 좌측 이미지 자리 -->
+          <img class="detail-container-img" src="./Welcome.png" />
+          <!-- 우측 게시글 자리 -->
+          <div class="detail-container-board">
+            <div class="detail-container-board-title">
+              <div class="detail-container-board-title-title">
+                제목 들어갈 곳
+              </div>
+              <!-- 
+                좋아요 버튼 사용하려면
+                  <script src="https://kit.fontawesome.com/07f579c9d6.js" crossorigin="anonymous" ></script>
+                이거 삽입해야함
+              -->
+              <div class="detail-container-board-title-like">
+                <i class="fa-sharp fa-solid fa-heart"></i>
+                <i class="fa-sharp fa-regular fa-heart"></i>
+              </div>
+            </div>
+
+            <!-- 게시글 내용 -->
+            <div class="detail-container-board-content">
+              내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+              내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+              내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+              내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+              내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+            </div>
+
+            <!-- 작성자 -->
+            <div class="detail-container-board-writer">
+              <p>작성자</p>
+              <button>팔로우</button>
+            </div>
+            <!-- 댓글 수와 좋아요 수 -->
+            <div class="detail-container-board-count">
+              <div class="detail-container-board-count-review">댓글 00개</div>
+              <div class="detail-container-board-count-like">좋아요 00개</div>
+            </div>
+
+            <!-- 댓글 목록 -->
+            <div class="detail-container-board-reviews">
+              <!-- 댓글 1 -->
+              <div class="detail-container-board-review">
+                <div class="detail-container-board-review-writer">작성자</div>
+                <div class="detail-container-board-review-content">
+                  내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                </div>
+                <button class="detail-container-board-review-button">
+                  삭제
+                </button>
+              </div>
+              <!-- 댓글 2 -->
+              <div class="detail-container-board-review">
+                <div class="detail-container-board-review-writer">작성자</div>
+                <div class="detail-container-board-review-content">
+                  내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                </div>
+                <button class="detail-container-board-review-button">
+                  삭제
+                </button>
+              </div>
+              <!-- 댓글 3 -->
+              <div class="detail-container-board-review">
+                <div class="detail-container-board-review-writer">작성자</div>
+                <div class="detail-container-board-review-content">
+                  내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                </div>
+                <button class="detail-container-board-review-button">
+                  삭제
+                </button>
+              </div>
+              <!-- 댓글 4 -->
+              <div class="detail-container-board-review">
+                <div class="detail-container-board-review-writer">작성자</div>
+                <div class="detail-container-board-review-content">
+                  내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                </div>
+                <button class="detail-container-board-review-button">
+                  삭제
+                </button>
+              </div>
+              <!-- 댓글 5 -->
+              <div class="detail-container-board-review">
+                <div class="detail-container-board-review-writer">작성자</div>
+                <div class="detail-container-board-review-content">
+                  내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                </div>
+                <button class="detail-container-board-review-button">
+                  삭제
+                </button>
+              </div>
+            </div>
+
+            <!-- 댓글 등록창 -->
+            <div class="detail-container-board-review-input">
+              <input type="text" />
+              <button>등록</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem;
+      border: 1px solid black;
+      background-color: #ffffff;
+    }
+
+    .logo img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .menu {
+      list-style: none;
+      display: flex;
+    }
+
+    .menu li {
+      margin-left: 0.625rem;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: #333;
+      padding: 0.3125rem;
+    }
+
+    .menu li a:hover {
+      background-color: gray;
+      color: #fff;
+    }
+
+    .profile {
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-info {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 5rem;
+      /* align-items: center; */
+    }
+
+    .profile img {
+      width: 12rem;
+      height: 15rem;
+    }
+
+    .goals-section {
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 15px;
+      padding: 2rem;
+      grid-column: 2 / span 2;
+      overflow: hidden;
+    }
+
+    .goals-header {
+      color: #333;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .goals-content {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .bar-graph {
+      width: 100%;
+      height: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background-color: #ffd4d4;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .ranking-section {
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 15px;
+      padding-top: 0rem;
+      padding: 2rem;
+      grid-column: 4 / span 2;
+    }
+
+    .ranking-header {
+      color: #333;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .ranking-content {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .goals-content,
+    .ranking-content {
+      height: 60%;
+      padding: 2rem 1rem;
+    }
+
+    .chart {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .kc {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-image: conic-gradient(from -90deg,
+          #aacb73 0%,
+          #aacb73 var(--kp),
+          #f2f2f2 var(--kp),
+          #f2f2f2 100%);
+    }
+
+    .cc {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-image: conic-gradient(from -90deg,
+          #aacb73 0%,
+          #aacb73 var(--cp),
+          #f2f2f2 var(--cp),
+          #f2f2f2 100%);
+    }
+
+    .pc {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-image: conic-gradient(from -90deg,
+          #aacb73 0%,
+          #aacb73 var(--pp),
+          #f2f2f2 var(--pp),
+          #f2f2f2 100%);
+    }
+
+    .fc {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-image: conic-gradient(from -90deg,
+          #aacb73 0%,
+          #aacb73 var(--fp),
+          #f2f2f2 var(--fp),
+          #f2f2f2 100%);
+    }
+
+    .inner-circle {
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      background-color: #ffffff;
+    }
+
+    .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .nutrition-info {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10rem;
+    }
+
+    .nutrition {
+      display: flex;
+      justify-content: center;
+    }
+
+    .divide.line {
+      color: gray;
+      border-style: solid;
+      border-width: 1px;
+      width: 95%;
+      margin-left: 2.5%;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="./logo_HPPT.png" alt="로고" />
+    </div>
+    <nav>
+      <ul class="menu">
+        <li><a href="#">식단</a></li>
+        <li><a href="#">운동영상</a></li>
+        <li><a href="#">게시판</a></li>
+        <li><a href="#">마이페이지</a></li>
+        <li><a href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+  <br />
+  <br />
+  <main>
+    <div class="profile">
+      <div class="profile-info">
+        <!-- 유저 프로필 사진 -->
+        <div class="profile">
+          <img src="./프로필 기본 이미지.png" alt="User Profile" />
+        </div>
+
+        <!--  Goals -->
+        <div class="goals-section">
+          <div class="goals-header">Goals</div>
+          <div class="goals-content">
+            <p>목표 감량 체중 : ㅇㅇ kg</p>
+            <p>현재 감량 체중 : ㅇㅇ kg</p>
+            <p>진행도 : ㅇㅇ %</p>
+            <div class="bar-graph">
+              <div class="bar" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ranking -->
+        <div class="ranking-section">
+          <div class="ranking-header">Ranking</div>
+          <div class="ranking-content">
+            <p>현재 랭킹 : ㅇ등</p>
+            <br />
+            <p>나 ㅇㅇ% 달성</p>
+            <p>친구 ㅇㅇ% 달성</p>
+            <p>친구 ㅇㅇ% 달성</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <!-- 영양정보 -->
+    <div class="nutrition">
+      <div class="nutrition-info">
+        <div>
+          <div>Kcal</div>
+          <div class="chart">
+            <div class="circle kc"></div>
+            <div class="inner-circle ki"></div>
+            <div class="percentage kp">75%</div>
+          </div>
+          <div>
+            <p>000 g / 000 g</p>
+          </div>
+        </div>
+
+        <div>
+          <div>Carbo</div>
+          <div class="chart">
+            <div class="circle cc"></div>
+            <div class="inner-circle ci"></div>
+            <div class="percentage cp">60%</div>
+          </div>
+        </div>
+
+        <div>
+          <div>Protein</div>
+          <div class="chart">
+            <div class="circle pc"></div>
+            <div class="inner-circle pi"></div>
+            <div class="percentage pp">60%</div>
+          </div>
+        </div>
+
+        <div>
+          <div>Fat</div>
+          <div class="chart">
+            <div class="circle fc"></div>
+            <div class="inner-circle fi"></div>
+            <div class="percentage fp">60%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <br />
+  <hr class="divide line">
+  <br />
+  <footer>
+    <p>
+      &copy; 2023 SSFY 9TH 1th Semester Fianl Project_Team_localhost:3101. All
+      rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    // kcal
+    const percentage_k = 80; // 퍼센트 값
+
+    const circleElement_k = document.querySelector(".kc");
+    const percentageElement_k = document.querySelector(".kp");
+
+    circleElement_k.style.setProperty("--kp", `${percentage_k}%`);
+
+    percentageElement_k.textContent = `${percentage_k}%`;
+    // carbo
+    const percentage_c = 80; // 퍼센트 값
+
+    const circleElement_c = document.querySelector(".cc");
+    const percentageElement_c = document.querySelector(".cp");
+
+    circleElement_c.style.setProperty("--cp", `${percentage_c}%`);
+
+    percentageElement_c.textContent = `${percentage_c}%`;
+    // proten
+    const percentage_p = 80; // 퍼센트 값
+
+    const circleElement_p = document.querySelector(".pc");
+    const percentageElement_p = document.querySelector(".pp");
+
+    circleElement_p.style.setProperty("--pp", `${percentage_p}%`);
+
+    percentageElement_p.textContent = `${percentage_p}%`;
+    // fat
+    const percentage_f = 80; // 퍼센트 값
+
+    const circleElement_f = document.querySelector(".fc");
+    const percentageElement_f = document.querySelector(".fp");
+
+    circleElement_f.style.setProperty("--fp", `${percentage_f}%`);
+
+    percentageElement_f.textContent = `${percentage_f}%`;
+  </script>
+</body>
+
+</html>

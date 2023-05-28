@@ -21,4 +21,5 @@ public interface UserService {
 	// 프로필 이미지 등록
 	public boolean joinImg(String userId, MultipartFile userImg) throws IOException;
 	
+	public String getFileName(String userId);
 }

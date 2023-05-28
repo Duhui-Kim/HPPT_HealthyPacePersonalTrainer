@@ -10,6 +10,10 @@ public class Board {
 	
 	private String userId;
 	
+	private String boardTitle;
+	
+	private String boardWriter;
+	
 	private String boardContent;
 	
 	private String createTime;
@@ -37,6 +41,22 @@ public class Board {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
+	}
+
+	public String getBoardWriter() {
+		return boardWriter;
+	}
+
+	public void setBoardWriter(String boardWriter) {
+		this.boardWriter = boardWriter;
 	}
 
 	public String getBoardContent() {
@@ -81,8 +101,8 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [boardId=" + boardId + ", userId=" + userId + ", boardContent=" + boardContent + ", createTime="
-				+ createTime + ", updateTime=" + updateTime + ", viewCnt=" + viewCnt + ", boardImg=" + boardImg + "]";
+		return "Board [boardId=" + boardId + ", userId=" + userId + ", boardTitle=" + boardTitle + ", boardWriter="
+				+ boardWriter + ", boardContent=" + boardContent + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + ", viewCnt=" + viewCnt + ", boardImg=" + boardImg + "]";
 	}
-
 }

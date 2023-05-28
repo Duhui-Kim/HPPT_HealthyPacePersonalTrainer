@@ -6,20 +6,50 @@
 	<select id="selectAllCount" resultType="int">
 		SELECT COUNT(*) FROM board
 	</select>
+	
+	<select id="searchCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM board
+		WHERE boardTitle LIKE CONCAT("%", #{title}, "%")
+	</select>
 
 	<select id="selectByPage" parameterType="int" resultType="board">
 		SELECT * FROM board
-		LIMIT #{limit} OFFSET #{offset};
+		ORDER BY boardId DESC
+		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
-	<insert id="insertBoard" parameterType="Board">
+	<select id="searchByTitle" parameterType="map" resultType="board">
+		SELECT * FROM board
+		WHERE boardTitle LIKE CONCAT("%", #{title}, "%")
+		ORDER BY boardId DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="selectFileName" parameterType="int" resultType="String">
+		SELECT boardImg FROM board
+		WHERE boardId = #{boardId}
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="Board">
+		SELECT * FROM board
+		WHERE boardId = #{boardId}
+	</select>
+	
+	
+	<insert id="insertBoard" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
 		INSERT INTO board (boardId, userId, boardTitle, boardWriter, boardContent, createTime, boardImg)
 		VALUES (0, #{userId}, #{boardTitle}, #{boardWriter}, #{boardContent}, now(), #{boardImg})
 	</insert>
 	
 	<update id="updateBoard" parameterType="Board">
 		UPDATE board
-		SET boardTitle = #{boardTitle}, boardWriter = #{boardWriter}, boardContent = #{boardContent}, updateTime = now(), boardImg = #{boardImg}
+		SET boardTitle = #{boardTitle}, boardWriter = #{boardWriter}, boardContent = #{boardContent}, updateTime = now()
+		WHERE boardId = #{boardId}
+	</update>
+	
+	<update id="updateBoardImg" parameterType="Board">
+		UPDATE board
+		SET boardImg = #{boardImg}
 		WHERE boardId = #{boardId}
 	</update>
 	

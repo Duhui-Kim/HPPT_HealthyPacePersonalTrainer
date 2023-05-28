@@ -1,6 +1,7 @@
 package com.diet.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,8 @@ import com.diet.model.dto.Board;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-	// 10개씩 반환
-	private final int LIMIT = 10;
+	// 6개씩 반환
+	private final int LIMIT = 6;
 	
 	@Autowired
 	private BoardDao boardDao;
@@ -25,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private FileService fileService;
 	
-	// current Page에 표시할 게시글 10개를 가져오는 method
+	// current Page에 표시할 게시글 6개를 가져오는 method
 	@Override
 	public Map<String, Object> getBoard(int current) {
 		Map<String, Object> map = new HashMap<>();
@@ -43,6 +44,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		List<Board> boardList = boardDao.selectByPage(LIMIT, OFFSET);
 		
+		if(boardList == null) boardList = new ArrayList<>();
+		
 		map.put("maxPage", maxPage);
 		map.put("boardlist", boardList);
 		
@@ -53,7 +56,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public int registBoard(Board board) {
-		return boardDao.insertBoard(board);
+		boardDao.insertBoard(board);
+		
+		return board.getBoardId();
 	}
 
 	// 게시글 수정
@@ -99,7 +104,7 @@ public class BoardServiceImpl implements BoardService {
 			String fileName = fileService.upload(imgFile);
 			
 			board.setBoardImg(fileName);
-			boardDao.insertBoard(board);
+			boardDao.updateBoardImg(board);
 		
 			return true;
 			
@@ -107,5 +112,41 @@ public class BoardServiceImpl implements BoardService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	// 9개씩 가져오기
+	@Override
+	public Map<String, Object> searchBoardByTitle(String title, int current) {
+		Map<String, Object> map = new HashMap<>();
+		
+		int maxSize = boardDao.searchCount(title);
+		int maxPage = maxSize / LIMIT;
+
+		if(maxSize % LIMIT != 0) 
+			maxPage++;
+		
+		// 최대 페이지 이상의 번호를 입력할 경우 null 반환
+		if(maxPage < current) return null;
+				
+		int OFFSET = (current-1) * LIMIT;
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("title", title);
+		params.put("limit", LIMIT);
+		params.put("offset", OFFSET);
+		
+		List<Board> boardList = boardDao.searchByTitle(params);
+		if(boardList == null) boardList = new ArrayList<>();
+		
+		map.put("maxPage", maxPage);
+		map.put("boardlist", boardList);
+		
+		return map;
+	}
+
+	@Override
+	public String getFileNameById(int boardId) {
+		return boardDao.selectFileName(boardId);
 	}
 }

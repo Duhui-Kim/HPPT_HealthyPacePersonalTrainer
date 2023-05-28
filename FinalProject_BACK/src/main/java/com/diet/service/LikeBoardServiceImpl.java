@@ -38,4 +38,13 @@ public class LikeBoardServiceImpl implements LikeBoardService {
 	public int dislikeBoard(LikeBoard likeBoard) {
 		return likeBoardDao.deleteLike(likeBoard);
 	}
+
+	// boardId의 좋아요 개수 가져오기
+	@Override
+	public int getCnt(int boardId) {
+		String cnt = likeBoardDao.selectByBoardId(boardId);
+
+		if (cnt == null) return 0;
+		return Integer.parseInt(cnt);
+	}
 }

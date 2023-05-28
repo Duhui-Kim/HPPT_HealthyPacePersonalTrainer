@@ -26,7 +26,7 @@ public class YoutubeController {
 
 	@GetMapping
 	@ApiOperation(value = "query로 검색한 youtube 영상을 maxResults의 개수만큼 가져오는 method입니다.", notes = "필수 : query, maxResults는 default 10")
-	public ResponseEntity<?> searchVideos(@RequestParam String query, @RequestParam(defaultValue = "10") int maxResults) {
+	public ResponseEntity<?> searchVideos(@RequestParam String query, @RequestParam(defaultValue = "6") int maxResults) {
 		List<YoutubeVideo> videos = youtubeService.searchVideos(query, maxResults);
 
 		if (videos != null && videos.size() > 0) {

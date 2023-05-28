@@ -12,6 +12,8 @@ public interface BoardService {
 	
 	public Board getBoardById(int boardId);
 	
+	public Map<String, Object> searchBoardByTitle(String title, int current);
+	
 	public int registBoard(Board board);
 	
 	public int modifyBoard(Board board);
@@ -21,5 +23,7 @@ public interface BoardService {
 	public int increaseViewCnt(int boardId);
 
 	public boolean registImgFile(int boardId, MultipartFile imgFile);
+
+	public String getFileNameById(int boardId);
 
 }

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HPPT - BoardList</title>
+
+    <!-- fabicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="../fabicon/favicon-96x96.png"
+    />
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem;
+        border: 1px solid black;
+        background-color: #ffffff;
+      }
+
+      .logo img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+      }
+
+      .menu li {
+        margin-left: 0.625rem;
+      }
+
+      .menu li a {
+        text-decoration: none;
+        color: #333;
+        padding: 0.3125rem;
+      }
+
+      .menu li a:hover {
+        background-color: gray;
+        color: #fff;
+      }
+
+      .search-container {
+        display: grid;
+        grid-template-columns: repeat(5, 10rem);
+        grid-template-rows: repeat(1, 3rem);
+        justify-content: center;
+        grid-gap: 1rem;
+        margin: 4rem 1rem 3rem 1rem;
+      }
+
+      .search-input {
+        grid-column: 1 / span 4;
+        border-radius: 10px;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .search-button {
+        border-radius: 10px;
+        background-color: #ffffff;
+      }
+
+      .search-button:hover {
+        background-color: #ffd4d4;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(3, 20rem);
+        grid-gap: 2rem;
+        justify-content: center;
+      }
+
+      .board {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 20rem;
+        height: 30rem;
+        transition: transform 0.4s ease;
+        box-shadow: 0 2px 4px rgba(134, 134, 134, 1);
+      }
+
+      .board:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+      }
+
+      .page_wrap {
+        text-align: center;
+        font-size: 0;
+        margin: 4rem 1rem 3rem 1rem;
+      }
+
+      .page_nation {
+        display: inline-block;
+      }
+
+      .page_nation .none {
+        display: none;
+      }
+
+      .page_nation a {
+        display: block;
+        margin: 0 3px;
+        float: left;
+        border: 1px solid #e6e6e6;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        background-color: #fff;
+        font-size: 13px;
+        color: #999999;
+        text-decoration: none;
+      }
+
+      .page_nation a.active {
+        background-color: #42454c;
+        color: #fff;
+        border: 1px solid #42454c;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <img src="../hwi/logo_HPPT.png" alt="로고" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">식단</a></li>
+          <li><a href="#">운동영상</a></li>
+          <li><a href="#">게시판</a></li>
+          <li><a href="#">마이페이지</a></li>
+          <li><a href="#">로그아웃</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="search-container">
+        <input type="text" class="search-input" />
+        <button class="search-button">검색</button>
+      </section>
+
+      <article>
+        <!-- 게시글 들어갈 영역-->
+        <div class="container">
+          <div class="board">
+            <!-- 여기에 이미지 파일 꽉차게 하면 될듯-->
+          </div>
+          <div class="board"></div>
+          <div class="board"></div>
+          <div class="board"></div>
+          <div class="board"></div>
+          <div class="board"></div>
+          <div class="board"></div>
+          <div class="board"></div>
+          <div class="board"></div>
+        </div>
+
+        <!-- 페이지 번호 들어갈 영역 -->
+        <div class="page_wrap">
+          <div class="page_nation">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+            <a href="#">8</a>
+            <a href="#">9</a>
+            <a href="#">10</a>
+          </div>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -9,7 +9,7 @@ public interface FriendService {
 	
 	public List<Friend> findFans(String userId);
 	
-	public List<Friend> findByName(String userName);
+	public List<Friend> findByName(String userName, String userId);
 	
 	public int registFriend(String userId, String friendId);
 	

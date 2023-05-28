@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      /* 헤더 */
+      body {
+        margin: 0;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem;
+        border: 1px solid black;
+        background-color: #ffffff;
+      }
+
+      .logo img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+      }
+
+      .menu li {
+        margin-left: 0.625rem;
+      }
+
+      .menu li a {
+        text-decoration: none;
+        color: #333;
+        padding: 0.3125rem;
+      }
+
+      .menu li a:hover {
+        background-color: gray;
+        color: #fff;
+      }
+
+      /* 메인 */
+
+      h2 {
+        text-align: center;
+      }
+
+      .profile-pic img {
+        max-width: 15rem;
+        max-height: 20rem;
+      }
+      .profile-pic {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .edit-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .main {
+        display: grid;
+        grid-template-columns: repeat(1, 56rem);
+        justify-content: center;
+      }
+
+      .user-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 8rem;
+      }
+
+      .edit-info {
+        background-color: #f2f2f2;
+        padding: 1rem;
+        border-radius: 10px;
+      }
+
+      .edit-info-span {
+        display: inline-block;
+        width: 8rem;
+        text-align: center;
+      }
+
+      .edit-info form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .choose-file-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .choose-file-label {
+        cursor: pointer;
+        background-color: #e99292;
+        padding: 0.4rem 0.625rem;
+        border-radius: 4px;
+        border: #aacb73;
+
+        color: white;
+        height: 1.125rem;
+        font-size: 14px;
+      }
+
+      .choose-file-btn input[type="file"] {
+        opacity: 0;
+        position: absolute;
+        cursor: pointer;
+      }
+
+      #profile-pic {
+        visibility: hidden;
+      }
+
+      .edit-info-btn,
+      .edit-img-btn {
+        text-align: center;
+        color: white;
+        background-color: #aacb73;
+        padding: 0.4rem 0.625rem;
+        border-radius: 4px;
+        border: #aacb73;
+        cursor: pointer;
+      }
+
+      .withdrawal-btn {
+        text-align: center;
+        color: white;
+        background-color: #f56969;
+        padding: 0.4rem 0.625rem;
+        border-radius: 4px;
+        border: #fa8080;
+        cursor: pointer;
+        margin-top: 1.5rem;
+        width: 4rem;
+      }
+      .link-margin {
+        margin: 0 0.6rem;
+        display: inline-block;
+      }
+      .search-btn {
+        text-align: center;
+        color: white;
+        background-color: #aacb73;
+        padding: 0.4rem 0.625rem;
+        border-radius: 4px;
+        border: #aacb73;
+        cursor: pointer;
+      }
+
+      .friend-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 8rem;
+        margin-top: 4rem;
+      }
+
+      .friend-list,
+      .friend-search {
+        background-color: #f2f2f2;
+        flex-basis: 70%;
+        padding: 1rem 2rem 2rem 2rem;
+        border-radius: 10px;
+        width: 20rem;
+      }
+
+      .friend-list ul,
+      .friend-search ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .friend-list li,
+      .friend-search li {
+        margin-bottom: 1rem;
+      }
+
+      .delete-btn {
+        background: none;
+        border: none;
+        color: #e99292;
+        cursor: pointer;
+        padding: 0;
+        float: right;
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-container input {
+        margin-right: 0.625rem;
+      }
+
+      /* 푸터 */
+      .divide.line {
+        color: gray;
+        border-style: solid;
+        border-width: 1px;
+        width: 95%;
+        margin-left: 2.5%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header>
+      <div class="logo">
+        <img src="./logo_HPPT.png" alt="로고" />
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">식단</a></li>
+          <li><a href="#">운동영상</a></li>
+          <li><a href="#">게시판</a></li>
+          <li><a href="#">마이페이지</a></li>
+          <li><a href="#">로그아웃</a></li>
+        </ul>
+      </nav>
+    </header>
+    <br />
+    <br />
+    <!-- 메인 -->
+    <main class="main">
+      <div class="user-info">
+        <div class="edit-img">
+          <form>
+            <div class="profile-pic">
+              <img
+                id="preview"
+                src="./프로필 기본 이미지.png"
+                alt="프로필 사진"
+              />
+            </div>
+            <br />
+            <div class="choose-file-btn">
+              <label class="choose-file-label" for="profile-pic">
+                이미지 찾기
+              </label>
+              <span class="link-margin"></span>
+              <input type="file" id="profile-pic" accept="image/*" />
+
+              <input class="edit-img-btn" type="submit" value="수정" />
+            </div>
+          </form>
+        </div>
+
+        <div class="edit-info">
+          <h2>회원정보 수정</h2>
+          <hr />
+          <br />
+          <form>
+            <div>
+              <span class="edit-info-span">이름</span>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value="John Doe"
+                required
+              />
+            </div>
+            <br />
+            <div>
+              <span class="edit-info-span">이메일</span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="johndoe@example.com"
+                required
+              />
+            </div>
+            <br />
+            <div>
+              <span class="edit-info-span">기존 비밀번호</span>
+              <input
+                type="password"
+                id="old-password"
+                name="old-password"
+                value="********"
+                required
+              />
+            </div>
+            <br />
+            <div>
+              <span class="edit-info-span">새 비밀번호</span>
+              <input
+                type="password"
+                id="new-password"
+                name="new-password"
+                value="********"
+                required
+              />
+            </div>
+            <br />
+            <div>
+              <span class="edit-info-span">새 비밀번호 확인</span>
+              <input
+                type="password"
+                id="confirm-new-password"
+                name="confirm-new-password"
+                value="********"
+                required
+              />
+            </div>
+            <br />
+            <div class="info-btns">
+              <input
+                class="edit-info-btn"
+                type="submit"
+                value="회원정보 수정"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="friend-info">
+        <div class="friend-list">
+          <h2>친구 목록</h2>
+          <hr />
+          <br />
+          <ul>
+            <li>
+              친구1
+              <button class="delete-btn" onclick="deleteFriend(this)">
+                삭제
+              </button>
+            </li>
+            <li>
+              친구2
+              <button class="delete-btn" onclick="deleteFriend(this)">
+                삭제
+              </button>
+            </li>
+            <li>
+              친구3
+              <button class="delete-btn" onclick="deleteFriend(this)">
+                삭제
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="friend-search">
+          <h2>친구 검색</h2>
+          <hr />
+          <br />
+          <div class="search-container">
+            <input type="text" id="friend-search" placeholder="친구 id 입력" />
+            <button class="search-btn" onclick="searchFriends()">검색</button>
+          </div>
+          <div class="searched-friend-list">
+            <br />
+            <ul>
+              <li>친구1</li>
+              <li>친구2</li>
+              <li>친구3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <input class="withdrawal-btn" value="회원탈퇴" />
+    </main>
+    <br />
+    <hr / class="divide line">
+    <br />
+    <footer>
+      <p>
+        &copy; 2023 SSFY 9TH 1th Semester Fianl Project_Team_localhost:3101. All
+        rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

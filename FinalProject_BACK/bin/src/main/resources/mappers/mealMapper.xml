@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.diet.model.dao.MealDao">
+	<resultMap type="Meal" id="mealMap">
+		<!-- column - db / property - dto -->
+		<result column="foodName" property="menuName" />
+		<result column="servingSize" property="intake" />
+		<result column="kcal" property="menuKcal" />
+		<result column="carbo" property="carbo" />
+		<result column="protein" property="protein" />
+		<result column="fat" property="fat" />
+	</resultMap>
+
+	<!-- 음식 이름으로 DB에서 검색 -->
+	<select id="selectFoodByName" parameterType="String"
+		resultMap="mealMap">
+		SELECT *
+		FROM foodAPI
+		WHERE foodName LIKE concat('%', #{menuName}, '%')
+	</select>
+	
+	<select id="selectMealById" parameterType="int" resultType="Meal">
+		SELECT * FROM mealplan
+		WHERE mealId = #{mealId}
+	</select>
+
+	<!-- 식사 등록 -->
+	<insert id="insertMeal" parameterType="Meal" keyProperty="mealId" useGeneratedKeys="true">
+		INSERT INTO mealplan
+		VALUES (0, #{userId}, #{menuName}, #{menuKcal}, #{carbo}, #{protein}, #{fat}, #{eatingTime}, #{divideTime}, null)
+	</insert>
+	
+	<!-- 식사 수정 -->
+	<update id="updateMeal" parameterType="Meal">
+		UPDATE mealplan
+		SET menuName=#{menuName}, menuKcal=#{menuKcal}, carbo=#{carbo},
+		protein=#{protein}, fat=#{fat}, eatingTime=#{eatingTime},
+		divideTime=#{divideTime}
+		WHERE mealId=#{mealId}
+	</update>
+	
+	<update id="updateImg" parameterType="Meal">
+		UPDATE mealplan
+		SET mealImg = #{mealImg}
+		WHERE mealId = #{mealId}
+	</update>
+	
+	<select id="selectFileName" parameterType="int" resultType="String">
+		SELECT mealImg FROM mealplan
+		WHERE mealId = #{mealId}
+	</select>
+	
+	<!-- 식사 삭제 -->
+	<delete id="deleteMeal" parameterType="int">
+		DELETE FROM mealplan
+		WHERE mealId = #{mealId}
+	</delete>
+	
+	<!-- 날짜별 식단 정보 가져오기 -->
+	<select id="selectMealByDate" parameterType="String"
+		resultType="Meal">
+		SELECT *
+		FROM mealplan
+		WHERE userId=#{userId} 
+		<if test="date != 'null'">
+			AND eatingTime=#{date}
+		</if>
+	</select>
+</mapper>

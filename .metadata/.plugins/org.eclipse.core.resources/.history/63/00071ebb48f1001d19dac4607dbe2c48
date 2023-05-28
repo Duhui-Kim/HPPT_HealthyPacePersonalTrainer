@@ -1,7 +1,0 @@
-package com.diet.service;
-
-public class UserService {
-	private getUser(String id);
-	
-	private regist(User user);
-}

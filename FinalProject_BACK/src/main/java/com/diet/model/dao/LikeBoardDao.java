@@ -8,4 +8,6 @@ public interface LikeBoardDao {
 	public int insertLike(LikeBoard likeBoard);
 	
 	public int deleteLike(LikeBoard likeBoard);
+
+	public String selectByBoardId(int boardId);
 }

@@ -1,5 +1,0 @@
-package com.diet.service;
-
-public interface UserServiceImpl {
-
-}

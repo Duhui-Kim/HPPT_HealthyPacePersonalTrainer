@@ -1,9 +1,7 @@
 package com.diet.controller;
 
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,25 +37,29 @@ public class BoardController {
 	private FileService fileService;
 
 	@GetMapping("/{current}")
-	@ApiOperation(value = "page번호를 입력하면 해당 페이지의 10개의 게시글을 가져오는 method", notes = "현재 페이지의 게시글(최대 10개)과 총 페이지 수를 반환합니다")
+	@ApiOperation(value = "{current}를 입력하면 해당 페이지의 9개의 게시글을 가져오는 method", notes = "현재 페이지의 게시글(최대 9개)과 총 페이지 수를 반환합니다")
 	public ResponseEntity<?> getList(@PathVariable int current) {
 
 		Map<String, Object> map = boardService.getBoard(current);
 
-		if (map != null) {
-			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-		}
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/search/{title}/{current}")
+	@ApiOperation(value = "{title}로 검색한 결과의 {current} 페이지의 6개 게시글을 가져오는 method", notes = "검색결과의 게시글(최대 6개)와 총 페이지 수를 반환합니다")
+	public ResponseEntity<?> searchBoard(@PathVariable String title, @PathVariable int current) {
+		Map<String, Object> map = boardService.searchBoardByTitle(title, current);
+		
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 
 	@PostMapping
 	@ApiOperation(value = "board를 등록하는 method", notes = "필수 : userId, boardTitle, boardWriter, boardContent")
 	public ResponseEntity<?> regist(@RequestBody Board board) {
-		int registCnt = boardService.registBoard(board);
+		int boardId = boardService.registBoard(board);
 
-		if (registCnt > 0) {
-			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		if (boardId > 0) {
+			return new ResponseEntity<Integer>(boardId, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 		}
@@ -123,11 +125,16 @@ public class BoardController {
 		}
 	}
 
-	@GetMapping("/img/{fileName}")
+	@GetMapping("/img/{boardId}")
 	@ApiOperation(value = "게시판 사진 가져오는 method", notes = "게시글에 사진이 있을 경우에만 요청해야한다")
-	public ResponseEntity<?> downloadImgFile(@PathVariable String fileName) {
+	public ResponseEntity<?> downloadImgFile(@PathVariable int boardId) {
+		String fileName = boardService.getFileNameById(boardId);
+		
+		if(fileName == null) 
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST); 
+		
 		ImgFile imgdata = fileService.getFileData(fileName);
-
+		
 		if (imgdata == null)
 			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
 

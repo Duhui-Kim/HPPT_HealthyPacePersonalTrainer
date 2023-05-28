@@ -59,13 +59,19 @@ public class UserServiceImpl implements UserService {
 	public boolean joinImg(String userId, MultipartFile userImg) throws IOException {
 
 		User user = userDao.selectById(userId);
-		if (user == null)
+		System.out.println(userId);
+		if (user == null) {
+			System.out.println("유저 null?");
 			return false;
+		}
 
 		String fileName = fileService.upload(userImg);
-		if (fileName == null)
+		if (fileName == null) {
+			System.out.println("파일네임 null?");
 			return false;
-
+		}
+		System.out.println("완료?");
+		
 		user.setUserImg(fileName);
 		userDao.update(user);
 
@@ -101,8 +107,11 @@ public class UserServiceImpl implements UserService {
 		// 비밀번호가 같을 경우에 유저 정보 수정
 		if (cryptPasswordEncoder.matches(user.getUserPass(), updateUser.getUserPass())) {
 			// 변경할 비밀번호가 입력되었다면 비밀번호 바꿔주기
-			if (user.getUserUpdatePass() != null || !user.getUserUpdatePass().trim().equals("")) {
+			if (user.getUserUpdatePass() != null && !user.getUserUpdatePass().trim().equals("")) {
 				user.setUserPass(cryptPasswordEncoder.encode(user.getUserUpdatePass()));
+				System.out.println(user);
+			} else {
+				user.setUserPass(updateUser.getUserPass());
 			}
 
 			userDao.update(user);
@@ -123,6 +132,11 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String getFileName(String userId) {
+		return userDao.selectFileName(userId);
 	}
 
 }

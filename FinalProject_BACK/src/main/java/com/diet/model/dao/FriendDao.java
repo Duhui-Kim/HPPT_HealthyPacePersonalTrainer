@@ -9,7 +9,7 @@ public interface FriendDao {
 
 	public List<String> selectFans(String userId);
 
-	public List<Friend> selectByName(String userName);
+	public List<Friend> selectByName(String userName, String userId);
 
 	public Friend selectFriend(String userId);
 

@@ -8,4 +8,6 @@ public interface LikeBoardService {
 	public int likeBoard(LikeBoard likeBoard);
 	
 	public int dislikeBoard(LikeBoard likeBoard);
+
+	public int getCnt(int boardId);
 }

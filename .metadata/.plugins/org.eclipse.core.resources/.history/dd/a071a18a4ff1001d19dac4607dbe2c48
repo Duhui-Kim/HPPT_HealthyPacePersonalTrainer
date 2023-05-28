@@ -1,7 +1,0 @@
-package com.diet.service;
-
-import com.diet.model.dto.User;
-
-public interface UserService {
-	public String join(User user);
-}

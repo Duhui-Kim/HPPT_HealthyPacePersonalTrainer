@@ -28,12 +28,22 @@ public class LikeBoardController {
 	@Autowired
 	private LikeBoardService likeBoardService;
 
-	@GetMapping("/{userId}/{boardId}")
-	@ApiOperation(value = "{userId}가 {boardId}를 좋아요 눌렀는지 체크하는 method", notes = "0이면 누르지 않았고, 1 이상이면 눌렀음")
-	public ResponseEntity<?> getLikeId(@PathVariable String userId, @PathVariable int boardId) {
+	@GetMapping("/check")
+	@ApiOperation(value = "userId가 boardId를 좋아요 눌렀는지 체크하는 method", notes = "0이면 누르지 않았고, 1 이상이면 눌렀음")
+	public ResponseEntity<?> getLikeId(@RequestBody String userId, @RequestBody int boardId) {
 		int likeId = likeBoardService.getLikeId(new LikeBoard(0, userId, boardId));
 
-		return new ResponseEntity<Integer>(likeId, HttpStatus.OK);
+		if(likeId > 0) 
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);			
+		return new ResponseEntity<Boolean>(false, HttpStatus.OK);			
+	}
+	
+	@GetMapping("/{boardId}")
+	@ApiOperation(value = "boardId의 좋아요 수를 반환하는 method")
+	public ResponseEntity<?> getLikeCnt(@PathVariable int boardId) {
+		int likeCnt = likeBoardService.getCnt(boardId);
+		
+		return new ResponseEntity<Integer>(likeCnt, HttpStatus.OK);
 	}
 
 	@PostMapping
