@@ -19,51 +19,47 @@
 
 
 
-## 2. 프로젝트 결과
+## 2. 프로젝트 결과 
 
-#### 	1) 회원가입 및 메인페이지
+  (용량 관계로 일부 페이지만)
 
-![1.회원가입-_online-video-cutter.com_](.\img\GIF\1.회원가입-_online-video-cutter.com_.gif)
+#### 	1) 식단등록
 
-#### 	2) 식단등록 페이지
+![2 -식단등록-_online-video-cutter com_](https://github.com/Bluuubery/Movie-Picker/assets/118238663/ec41aa3f-8285-498b-82d9-6e5db9440c0f)
 
-![2.-식단등록-_online-video-cutter.com_](.\img\GIF\2.-식단등록-_online-video-cutter.com_.gif)
+#### 	2) 게시글 등록
 
-#### 	3) 영상보기
+![5 -게시글등록-_online-video-cutter com_](https://github.com/Bluuubery/Movie-Picker/assets/118238663/1482688b-f616-4db5-9088-6c570dfc9979)
 
-![3.-영상보기-_online-video-cutter.com_](.\img\GIF\3.-영상보기-_online-video-cutter.com_.gif)
 
-#### 	4) 게시판
 
-![4.-게시판-_online-video-cutter.com_](.\img\GIF\4.-게시판-_online-video-cutter.com_.gif)
+#### 	3) 마이페이지
 
-#### 	5) 게시글 등록
+![6 -마이페이지-편집-_online-video-cutter com__2 (1)](https://github.com/Bluuubery/Movie-Picker/assets/118238663/b5575679-5c2d-44b1-a451-b9d9d1faaf1e)
 
-![5.-게시글등록-_online-video-cutter.com_](.\img\GIF\5.-게시글등록-_online-video-cutter.com_.gif)
 
-#### 	6) 마이페이지
 
-![6.-마이페이지-편집-_online-video-cutter.com__2 (1)](.\img\GIF\6.-마이페이지-편집-_online-video-cutter.com__2 (1).gif)
+#### 	4) 메인화면
 
-#### 	7) 메인화면
+![7 -메인화면-](https://github.com/Bluuubery/Movie-Picker/assets/118238663/e4ad28ff-d00e-4840-b693-4a6c3866937c)
 
-![7.-메인화면-](.\img\GIF\7.-메인화면-.gif)
 
-#### 	8) 로그아웃
 
-![8.-로그아웃-](.\img\GIF\8.-로그아웃-.gif)
+#### 	5) 로그아웃
+
+![8 -로그아웃-](https://github.com/Bluuubery/Movie-Picker/assets/118238663/71fcb363-ce55-486d-944f-100949a38fd2)
 
 
 
 ## 3. API
 
-![API](.\img\img\API.JPG)
+![API](https://github.com/Bluuubery/Movie-Picker/assets/118238663/6acddf70-3d39-4736-a693-ef2c3ff9ccf3)
 
 
 
 ## 4. ERD
 
-![ERD](.\img\img\ERD.JPG)
+![ERD](https://github.com/Bluuubery/Movie-Picker/assets/118238663/b08d57b2-b705-4225-a1c6-dec28caa06fb)
 
 
 
