@@ -43,7 +43,13 @@
 	
 	<update id="updateBoard" parameterType="Board">
 		UPDATE board
-		SET boardTitle = #{boardTitle}, boardWriter = #{boardWriter}, boardContent = #{boardContent}, updateTime = now(), boardImg = #{boardImg}
+		SET boardTitle = #{boardTitle}, boardWriter = #{boardWriter}, boardContent = #{boardContent}, updateTime = now()
+		WHERE boardId = #{boardId}
+	</update>
+	
+	<update id="updateBoardImg" parameterType="Board">
+		UPDATE board
+		SET boardImg = #{boardImg}
 		WHERE boardId = #{boardId}
 	</update>
 	

@@ -61,9 +61,15 @@
 
 ![ERD](https://github.com/Bluuubery/Movie-Picker/assets/118238663/b08d57b2-b705-4225-a1c6-dec28caa06fb)
 
+<br>
 
+## 5. Swagger UI
 
-## 5. 느낀점 및 아쉬운점
+![다운로드](https://github.com/Duhui-Kim/HPPT_HealthyPacePersonalTrainer/assets/118238663/5312490e-cde6-41c1-bb46-bb3458676567)
+
+<br>
+
+## 6. 느낀점 및 아쉬운점
 
 <느낀점>
 
